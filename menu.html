@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu - Monstera Eatery</title>
+
+    <!-- Load Font Plus Jakarta Sans & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Ikon Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <style>
+        /* ===================================================================== */
+        /* RESET & VARIABEL WARNA DASAR (SAMA DENGAN index.html & about.html)    */
+        /* ===================================================================== */
+        :root {
+            --bg-dark: #171D19;
+            --bg-green: #135B37;
+            --gold: #8A660E;
+            --gold-light: #BC9A6C;
+            --cream: #EDEAE3;
+            --text-dark: #333333;
+            --text-gray: #4F4F4F;
+            --text-muted: #828282;
+            --border-light: #E0E0E0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            background: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.18;
+            color: var(--text-dark);
+        }
+
+        /* ===================================================================== */
+        /* 1. NAVBAR                                                             */
+        /* ===================================================================== */
+        .navbar {
+            background: var(--bg-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 92px;
+            gap: 24px;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .brand-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #F8F5EE;
+            font-size: 20px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .search-box {
+            position: relative;
+            width: 240px;
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 9999px;
+            border: none;
+            outline: none;
+            background: #F0F5EE;
+            color: #404942;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .search-box .material-symbols-outlined {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #404942;
+            pointer-events: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle .material-symbols-outlined {
+            font-size: 32px;
+        }
+
+        /* ===================================================================== */
+        /* 2. PAGE HERO BANNER (OUR MENU)                                        */
+        /* ===================================================================== */
+        .page-hero {
+            position: relative;
+            background: var(--bg-green);
+            min-height: 360px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+            padding: 64px 24px;
+            color: #ffffff;
+        }
+
+        .page-hero-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.18;
+            pointer-events: none;
+        }
+
+        .hero-leaf {
+            position: absolute;
+            width: 100px;
+            opacity: 0.4;
+            pointer-events: none;
+            transform: rotate(74deg);
+        }
+
+        .hero-leaf-left {
+            left: 28%;
+            bottom: 18%;
+        }
+
+        .hero-leaf-right {
+            right: 26%;
+            top: 18%;
+        }
+
+        .page-hero-title {
+            position: relative;
+            z-index: 2;
+            font-size: clamp(36px, 5vw, 48px);
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        /* ===================================================================== */
+        /* 3. DAFTAR MENU PER KATEGORI (LAYOUT ZIG-ZAG)                          */
+        /* ===================================================================== */
+        .menu-catalog {
+            padding: 96px 0 88px;
+        }
+
+        .menu-sections-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 112px;
+        }
+
+        .menu-category-row {
+            display: grid;
+            grid-template-columns: minmax(300px, 448px) 1fr;
+            align-items: start;
+            gap: 72px;
+        }
+
+        /* Variasi Foto di Kanan (Minuman & Dimsum) */
+        .menu-category-row.reverse {
+            grid-template-columns: 1fr minmax(300px, 448px);
+        }
+
+        .menu-category-image img {
+            width: 100%;
+            aspect-ratio: 448 / 626;
+            object-fit: cover;
+            border-radius: 6px;
+        }
+
+        .menu-category-heading {
+            margin-bottom: 36px;
+        }
+
+        .menu-items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .menu-item {
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .menu-item-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 8px;
+        }
+
+        .menu-item-head h3 {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--text-dark);
+            transition: color 0.2s;
+        }
+
+        .menu-item:hover .menu-item-head h3,
+        .menu-item-head h3.highlight {
+            color: var(--gold);
+        }
+
+        .menu-item-price {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--gold);
+            white-space: nowrap;
+        }
+
+        .menu-item p {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            max-width: 640px;
+        }
+
+        /* ===================================================================== */
+        /* 4. PAGINATION PANAH BAWAH (<< >>)                                     */
+        /* ===================================================================== */
+        .menu-pagination {
+            margin-top: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 32px;
+        }
+
+        .page-nav-btn {
+            background: none;
+            border: none;
+            padding: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: var(--gold);
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .page-nav-btn:hover:not(:disabled) {
+            transform: scale(1.1);
+        }
+
+        .page-nav-btn:disabled {
+            color: rgba(130, 130, 130, 0.53);
+            cursor: not-allowed;
+        }
+
+        /* ===================================================================== */
+        /* 5. FOOTER (SAMA DENGAN index.html & about.html)                       */
+        /* ===================================================================== */
+        .footer {
+            background: var(--bg-dark);
+            color: #ffffff;
+            padding-top: 88px;
+        }
+
+        .newsletter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .newsletter-info h2 {
+            font-size: clamp(24px, 2.5vw, 32px);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-info p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 580px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            width: 100%;
+            max-width: 459px;
+            height: 56px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--gold);
+            border: none;
+            outline: none;
+            padding: 0 20px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter-form button {
+            width: 140px;
+            background: #ffffff;
+            color: var(--gold-light);
+            border: none;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr 1fr 1.1fr;
+            gap: 40px;
+            padding: 56px 0 64px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .footer-about-text {
+            font-size: 16px;
+            line-height: 1.65;
+            text-align: justify;
+            margin-bottom: 28px;
+            opacity: 0.95;
+        }
+
+        .opening-hours {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .clock-box {
+            width: 72px;
+            height: 68px;
+            flex-shrink: 0;
+            background: var(--gold);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .opening-hours-text strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .opening-hours-text span {
+            display: block;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            font-size: 16px;
+            color: #ffffff;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-contact p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .footer-fav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .footer-fav-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-fav-item img {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 4px;
+        }
+
+        .footer-fav-item span {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .footer-bottom {
+            background: #4F4F4F;
+            padding: 28px 0;
+        }
+
+        .footer-bottom-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .copyright {
+            font-size: 16px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-socials a {
+            width: 35px;
+            height: 33px;
+            background: #ffffff;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===================================================================== */
+        /* MEDIA QUERIES (RESPONSIVE TABLET & MOBILE)                            */
+        /* ===================================================================== */
+
+        /* Tablet & Laptop Kecil (<= 1024px) */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 18px;
+            }
+
+            .nav-links a {
+                font-size: 17px;
+            }
+
+            .search-box {
+                width: 190px;
+            }
+
+            .menu-sections-wrap {
+                gap: 80px;
+            }
+
+            .menu-category-row,
+            .menu-category-row.reverse {
+                grid-template-columns: 1fr;
+                gap: 36px;
+            }
+
+            /* Pada layar kecil, posisi foto selalu di atas daftar menu */
+            .menu-category-row.reverse .menu-category-image {
+                order: -1;
+            }
+
+            .menu-category-image img {
+                max-width: 520px;
+                margin: 0 auto;
+                aspect-ratio: 16 / 10;
+            }
+
+            .newsletter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .newsletter-form {
+                max-width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile / HP (<= 768px) */
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar-inner {
+                flex-wrap: wrap;
+                padding-top: 16px;
+                padding-bottom: 16px;
+                min-height: auto;
+            }
+
+            .nav-links,
+            .search-box {
+                display: none;
+                width: 100%;
+            }
+
+            .navbar.open .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 0 8px;
+                gap: 14px;
+                border-top: 1px solid rgba(255, 255, 255, 0.12);
+            }
+
+            .navbar.open .search-box {
+                display: block;
+                margin-top: 8px;
+            }
+
+            .page-hero {
+                min-height: 240px;
+            }
+
+            .hero-leaf {
+                width: 64px;
+            }
+
+            .menu-catalog {
+                padding: 64px 0;
+            }
+
+            .menu-sections-wrap {
+                gap: 64px;
+            }
+
+            .menu-item-head h3,
+            .menu-item-price {
+                font-size: 20px;
+            }
+
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+                overflow: visible;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                height: 50px;
+                border-radius: 4px;
+            }
+
+            .footer-bottom-inner {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+            /* Pengaturan Halaman Pagination Menu */
+            .menu-catalog {
+                scroll-margin-top: 92px;
+            }
+
+            .menu-page {
+                display: none;
+                flex-direction: column;
+                gap: 112px;
+            }
+
+            .menu-page.active {
+                display: flex;
+                animation: fadeInPage 0.3s ease;
+            }
+
+            @keyframes fadeInPage {
+                from { opacity: 0; transform: translateY(10px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            @media (max-width: 1024px) {
+                .menu-page { gap: 80px; }
+            }
+
+            @media (max-width: 768px) {
+                .menu-page { gap: 64px; }
+            }
+
+            /* ===================================================================== */
+        /* DROPDOWN HASIL PENCARIAN NAVBAR & HIGHLIGHT MENU                      */
+        /* ===================================================================== */
+        .search-results {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 300px;
+            max-height: 320px;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+            border: 1px solid #e5e5e5;
+            z-index: 1200;
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.15s;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: #FAF7F2;
+        }
+
+        .search-result-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #333333;
+        }
+
+        .search-result-cat {
+            display: block;
+            font-size: 12px;
+            color: #828282;
+        }
+
+        .search-result-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #8A660E;
+            white-space: nowrap;
+        }
+
+        .search-empty {
+            padding: 16px;
+            text-align: center;
+            font-size: 13px;
+            color: #828282;
+        }
+
+        /* Efek sorotan saat menu ditemukan di menu.html */
+        .menu-item.search-highlight {
+            background: #FFF8E7;
+            padding: 16px 16px 24px;
+            border-radius: 8px;
+            border-left: 4px solid #8A660E;
+            transition: background 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            .search-results {
+                width: 100%;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===================================================================== -->
+    <!-- 1. SECTION NAVBAR (NAVIGASI ATAS)                                     -->
+    <!-- ===================================================================== -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <!-- Logo Brand -->
+            <a href="index.html" class="brand-logo">Monstera<span>Eatery</span></a>
+
+            <!-- Tombol Hamburger (Hanya Muncul di HP) -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Buka Menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+
+            <!-- Daftar Link Navigasi -->
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html" class="active">Menu</a></li>
+                <li><a href="reservasi.html">Reservasi</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+
+            <!-- Kolom Pencarian (Aktif) -->
+            <form class="search-box" id="navSearchForm" autocomplete="off">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" id="navSearchInput" placeholder="Cari hidangan Monstera..." />
+                <div class="search-results" id="navSearchResults"></div>
+            </form>
+        </div>
+    </header>
+
+
+    <!-- ===================================================================== -->
+    <!-- 2. SECTION PAGE HERO BANNER (OUR MENU)                                -->
+    <!-- ===================================================================== -->
+    <section class="page-hero">
+        <!-- Ganti dengan gambar tekstur background hero -->
+        <img class="page-hero-bg" src="assets/img/bg.png" alt="" />
+
+        <!-- Ganti dengan gambar hiasan daun -->
+        <img class="hero-leaf hero-leaf-left" src="assets/img/daun.png" alt="" />
+        <img class="hero-leaf hero-leaf-right" src="assets/img/daun.png" alt="" />
+
+        <h1 class="page-hero-title">Our Menu</h1>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 3. SECTION DAFTAR KATEGORI MENU (MAKANAN, MINUMAN, SNACKS, DIMSUM)    -->
+    <!-- ===================================================================== -->
+    <main class="menu-catalog">
+        <div class="container">
+            <div class="menu-sections-wrap" id="menuSectionsWrap">
+
+                <!-- =========================================================== -->
+                <!-- KATEGORI 1: MAKANAN (FOTO KIRI, DAFTAR KANAN)               -->
+                <!-- =========================================================== -->
+                 <!-- HALAMAN 1 (Makanan, Minuman, Snacks, Dimsum) -->
+                <div class="menu-page active" id="menuPage1">
+                <section class="menu-category-row">
+                    <!-- Foto Kategori Makanan -->
+                    <div class="menu-category-image">
+                        <!-- Ganti dengan foto kategori Makanan -->
+                        <img src="assets/img/makanan.jpg" alt="Kategori Makanan Monstera Eatery" />
+                    </div>
+
+                    <!-- Daftar Item Makanan -->
+                    <div class="menu-category-content">
+                        <h2 class="section-title menu-category-heading">Makanan</h2>
+                        <div class="menu-items-list">
+                            <!-- Item 1 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3 class="highlight">Ayam Wangi</h3>
+                                    <span class="menu-item-price">25k</span>
+                                </div>
+                                <p>Ayam goreng rempah khas dengan aroma harum bumbu pilihan yang meresap hingga ke dalam daging.</p>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Sego Endok Jomblo</h3>
+                                    <span class="menu-item-price">15k</span>
+                                </div>
+                                <p>Nasi hangat disajikan dengan telur dadar gurih dan cocolan sambal khas yang mantap.</p>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Ayam Hitam</h3>
+                                    <span class="menu-item-price">27k</span>
+                                </div>
+                                <p>Olahan ayam dengan bumbu rempah hitam pekat yang gurih, meresap, dan kaya rasa</p>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Sego Endok Cumi Ijo</h3>
+                                    <span class="menu-item-price">24k</span>
+                                </div>
+                                <p>Nasi hangat, telur, dan tumisan cumi segar sambal cabai hijau yang pedas segar.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                </div>
+
+                <!-- =========================================================== -->
+                <!-- HALAMAN 2 (Coffe, Non-Cofe Drinks, Matcha & Tea, Dessert)   -->
+                <!-- =========================================================== -->
+                <div class="menu-page" id="menuPage2">
+                    <!-- KATEGORI 5: COFFE (FOTO KIRI, DAFTAR KANAN) -->
+                    <section class="menu-category-row">
+                        <div class="menu-category-image">
+                            <!-- Ganti dengan foto kategori Coffe -->
+                            <img src="assets/img/coffe.jpg" alt="Kategori Coffe Monstera Eatery" />
+                        </div>
+
+                        <div class="menu-category-content">
+                            <h2 class="section-title menu-category-heading">Coffe</h2>
+                            <div class="menu-items-list">
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Ekspresso</h3>
+                                        <span class="menu-item-price">12k</span>
+                                    </div>
+                                    <p>Ekstrak kopi murni konsentrat tinggi dengan rasa mantap dan aroma tajam.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Doppio</h3>
+                                        <span class="menu-item-price">15k</span>
+                                    </div>
+                                    <p>Double shot espresso untuk dorongan kafein ekstra kuat.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Japanese Coffe</h3>
+                                        <span class="menu-item-price">22k</span>
+                                    </div>
+                                    <p>Manual brew es kopi diseduh metode drip langsung di atas es untuk rasa segar berkarakter.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>V60</h3>
+                                        <span class="menu-item-price">22k</span>
+                                    </div>
+                                    <p>Seduhan kopi manual brew V60 dengan karakter rasa kopi yang kompleks dan bersih.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- KATEGORI 6: NON-COFE DRINKS (DAFTAR KIRI, FOTO KANAN) -->
+                    <section class="menu-category-row reverse">
+                        <div class="menu-category-content">
+                            <h2 class="section-title menu-category-heading">Non-Cofe Drinks</h2>
+                            <div class="menu-items-list">
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Strawberry Markisa</h3>
+                                        <span class="menu-item-price">18k</span>
+                                    </div>
+                                    <p>Perpaduan kesegaran rasa manis-asam stroberi dan aroma tropis buah markisa.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Mangga Orange</h3>
+                                        <span class="menu-item-price">18k</span>
+                                    </div>
+                                    <p>Perpaduan jus/pulp mangga dan kesegaran rasa jeruk yang menyegarkan.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Strawberry Milk</h3>
+                                        <span class="menu-item-price">20k</span>
+                                    </div>
+                                    <p>Minuman susu manis dingin berpadu rasa/pulp stroberi segar.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Blueberry Milk</h3>
+                                        <span class="menu-item-price">20k</span>
+                                    </div>
+                                    <p>Susu creamy dingin berpadu rasa blueberry manis nan lembut.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-category-image">
+                            <!-- Ganti dengan foto kategori Non-Cofe Drinks -->
+                            <img src="assets/img/non coffe.avif" alt="Kategori Non-Cofe Drinks Monstera Eatery" />
+                        </div>
+                    </section>
+
+                    <!-- KATEGORI 7: MATCHA & TEA (FOTO KIRI, DAFTAR KANAN) -->
+                    <section class="menu-category-row">
+                        <div class="menu-category-image">
+                            <!-- Ganti dengan foto kategori Matcha & Tea -->
+                            <img src="assets/img/matcha&tea.jpg" alt="Kategori Matcha & Tea Monstera Eatery" />
+                        </div>
+
+                        <div class="menu-category-content">
+                            <h2 class="section-title menu-category-heading">Matcha & Tea</h2>
+                            <div class="menu-items-list">
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Matcha Oat Milk</h3>
+                                        <span class="menu-item-price">25k</span>
+                                    </div>
+                                    <p>Teh matcha hijau otentik berpadu oat milk gurih nan creamy.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Matcha Tea Milo</h3>
+                                        <span class="menu-item-price">22k</span>
+                                    </div>
+                                    <p>Minuman unik gabungan rasa matcha hijau dan kelezatan cokelat Milo.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Lemon Tea</h3>
+                                        <span class="menu-item-price">12k</span>
+                                    </div>
+                                    <p>Seduhan teh segar berpadu perasan lemon manis asam penyegar dahaga.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Markisa Leci Tea</h3>
+                                        <span class="menu-item-price">16k</span>
+                                    </div>
+                                    <p>Es teh dengan paduan rasa markisa yang kaya aroma dan manisnya buah leci.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- KATEGORI 8: DESSERT (DAFTAR KIRI, FOTO KANAN) -->
+                    <section class="menu-category-row reverse">
+                        <div class="menu-category-content">
+                            <h2 class="section-title menu-category-heading">Dessert</h2>
+                            <div class="menu-items-list">
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Es Krim Cokelat</h3>
+                                        <span class="menu-item-price">12k</span>
+                                    </div>
+                                    <p>Es krim lembut manis dengan cita rasa cokelat klasik.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Es Krim Coffee Black Pink</h3>
+                                        <span class="menu-item-price">15k</span>
+                                    </div>
+                                    <p>Kombinasi es krim rasa kopi dipadu sentuhan warna manis pink berry.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Es Krim Strawberry Salt Caramel</h3>
+                                        <span class="menu-item-price">15k</span>
+                                    </div>
+                                    <p>Es krim stroberi asam-manis disiram saus karamel asin gurih.</p>
+                                </div>
+
+                                <div class="menu-item">
+                                    <div class="menu-item-head">
+                                        <h3>Es Krim Red Velvet Popcorn</h3>
+                                        <span class="menu-item-price">16k</span>
+                                    </div>
+                                    <p>Es krim red velvet lengkap dengan topping popcorn renyah manis.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="menu-category-image">
+                            <!-- Ganti dengan foto kategori Dessert -->
+                            <img src="assets/img/dessert.jpg" alt="Kategori Dessert Monstera Eatery" />
+                        </div>
+                    </section>
+
+                </div> 
+
+
+
+                <!-- =========================================================== -->
+                <!-- KATEGORI 2: MINUMAN (DAFTAR KIRI, FOTO KANAN)               -->
+                <!-- =========================================================== -->
+                <section class="menu-category-row reverse">
+                    <!-- Daftar Item Minuman -->
+                    <div class="menu-category-content">
+                        <h2 class="section-title menu-category-heading">Minuman</h2>
+                        <div class="menu-items-list">
+                            <!-- Item 1 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Es jeruk</h3>
+                                    <span class="menu-item-price">10k</span>
+                                </div>
+                                <p>Minuman jeruk peras segar dipadu es batu penyegar dahaga.</p>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Air Mineral</h3>
+                                    <span class="menu-item-price">5k</span>
+                                </div>
+                                <p>Air mineral kemasan dingin/biasa untuk menyegarkan tenggorokan.</p>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Jus Semangka</h3>
+                                    <span class="menu-item-price">15k</span>
+                                </div>
+                                <p>Olahan buah semangka segar yang diblend halus, manis dan menghidrasi.</p>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Jus Alpukat</h3>
+                                    <span class="menu-item-price">20k</span>
+                                </div>
+                                <p>Jus alpukat kental nan creamy disiram susu cokelat manis.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Foto Kategori Minuman -->
+                    <div class="menu-category-image">
+                        <!-- Ganti dengan foto kategori Minuman -->
+                        <img src="assets/img/minumanjeruk.jpeg" alt="Kategori Minuman Monstera Eatery" />
+                    </div>
+                </section>
+
+                <!-- =========================================================== -->
+                <!-- KATEGORI 3: SNACKS (FOTO KIRI, DAFTAR KANAN)                -->
+                <!-- =========================================================== -->
+                <section class="menu-category-row">
+                    <!-- Foto Kategori Snacks -->
+                    <div class="menu-category-image">
+                        <!-- Ganti dengan foto kategori Snacks -->
+                        <img src="assets/img/snacks.jpg" alt="Kategori Snacks Monstera Eatery" />
+                    </div>
+
+                    <!-- Daftar Item Snacks -->
+                    <div class="menu-category-content">
+                        <h2 class="section-title menu-category-heading">Snacks</h2>
+                        <div class="menu-items-list">
+                            <!-- Item 1 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Toast Sandwich</h3>
+                                    <span class="menu-item-price">20k</span>
+                                </div>
+                                <p>Roti panggang krispi dengan isian keju, telur, dan smoked beef yang gurih.</p>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Yakiniku Shortplate Burger</h3>
+                                    <span class="menu-item-price">30k</span>
+                                </div>
+                                <p>Burger ber-topping daging shortplate panggang bumbu yakiniku gurih manis.</p>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Crispy Chicken Burger</h3>
+                                    <span class="menu-item-price">24k</span>
+                                </div>
+                                <p>Burger dengan isian fillet ayam krispi renyah dan mayones gurih.</p>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Platter Burger Beef Meltique</h3>
+                                    <span class="menu-item-price">42k</span>
+                                </div>
+                                <p>Paket Burger Beef Meltique disajikan lengkap dengan kentang goreng dan dip sauce.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- =========================================================== -->
+                <!-- KATEGORI 4: DIMSUM (DAFTAR KIRI, FOTO KANAN)                -->
+                <!-- =========================================================== -->
+                <section class="menu-category-row reverse">
+                    <!-- Daftar Item Dimsum -->
+                    <div class="menu-category-content">
+                        <h2 class="section-title menu-category-heading">Dimsum</h2>
+                        <div class="menu-items-list">
+                            <!-- Item 1 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Siomay udang</h3>
+                                    <span class="menu-item-price">18k</span>
+                                </div>
+                                <p>Dimsum olahan udang lembut dan gurih disajikan dengan chili oil.</p>
+                            </div>
+
+                            <!-- Item 2 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Siomay Mozarella</h3>
+                                    <span class="menu-item-price">20k</span>
+                                </div>
+                                <p>Siomay ayam lembut dengan kejutan keju mozarella lumer di dalamnya.</p>
+                            </div>
+
+                            <!-- Item 3 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Udang Rambutan</h3>
+                                    <span class="menu-item-price">18k</span>
+                                </div>
+                                <p>Dimsum udang dibalut kulit olahan krispi menyerupai rambutan yang renyah.</p>
+                            </div>
+
+                            <!-- Item 4 -->
+                            <div class="menu-item">
+                                <div class="menu-item-head">
+                                    <h3>Lumpia Kulit Tahu</h3>
+                                    <span class="menu-item-price">18k</span>
+                                </div>
+                                <p>Isian daging ayam/udang yang dibungkus kulit tahu krispi/kukus.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Foto Kategori Dimsum -->
+                    <div class="menu-category-image">
+                        <!-- Ganti dengan foto kategori Dimsum -->
+                        <img src="assets/img/dimsum.png" alt="Kategori Dimsum Monstera Eatery" />
+                    </div>
+                </section>
+
+            </div>
+
+            <!-- =============================================================== -->
+            <!-- 4. NAVIGASI PAGINATION MENU (PANAH KIRI & KANAN)                -->
+            <!-- =============================================================== -->
+            <div class="menu-pagination">
+                <!-- Tombol Halaman Sebelumnya (<<) -->
+                <button class="page-nav-btn" id="prevPageBtn" type="button" aria-label="Halaman Sebelumnya" disabled>
+                    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="11 17 6 12 11 7"></polyline>
+                        <polyline points="18 17 13 12 18 7"></polyline>
+                    </svg>
+                </button>
+
+                <!-- Tombol Halaman Berikutnya (>>) -->
+                <button class="page-nav-btn" id="nextPageBtn" type="button" aria-label="Halaman Berikutnya">
+                    <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="13 17 18 12 13 7"></polyline>
+                        <polyline points="6 17 11 12 6 7"></polyline>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </main>
+
+
+    <!-- ===================================================================== -->
+    <!-- 5. SECTION FOOTER (SAMA DENGAN index.html & about.html)               -->
+    <!-- ===================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Baris Newsletter & Garis Pemisah Kuning -->
+            <div class="newsletter-bar">
+                <div class="newsletter-info">
+                    <h2>Ingin Info Promo & Menu Terbaru Kami?</h2>
+                    <p>Masukkan email Anda untuk mendapatkan kabar dan penawaran menarik langsung dari Cafe Monstera.</p>
+                </div>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Enter Your Email" required />
+                    <button type="submit">Kirim</button>
+                </form>
+            </div>
+
+            <!-- 4 Kolom Utama Footer -->
+            <div class="footer-grid">
+                <!-- Kolom 1: About Us & Jam Buka -->
+                <div class="footer-col">
+                    <h3>About Us.</h3>
+                    <p class="footer-about-text">
+                        Cafe Monstera (Monstera Eatery) adalah pilihan utama tempat nongkrong, nugas, dan berkumpul keluarga di Bondowoso. Menghadirkan suasana sejuk dengan ruang indoor ber-AC bebas asap rokok serta ragam pilihan makanan berat dan camilan lezat yang ramah di kantong.
+                    </p>
+                    <div class="opening-hours">
+                        <div class="clock-box">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9.5"></circle>
+                                <polyline points="12 7 12 12 15.5 14.5"></polyline>
+                            </svg>
+                        </div>
+                        <div class="opening-hours-text">
+                            <strong>Jam Buka Cafe</strong>
+                            <span>Senin – Minggu: 10.00 – 22.00 WIB</span>
+                            <span>Setiap Hari Buka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Tautan Penting -->
+                <div class="footer-col">
+                    <h3>Tautan Penting</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservasi.html">Reservasi</a></li>
+                        <li><a href="galeri.html">Galeri</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Lokasi & Kontak -->
+                <div class="footer-col footer-contact">
+                    <h3>Lokasi & Kontak</h3>
+                    <p><strong>Alamat Kafe:</strong><br />Jl. Letjen Suprapto No. 44 (Utara SDN Dabasah 2 / Percetakan D Print), Bondowoso</p>
+                    <p><strong>Kontak / WhatsApp:</strong><br />0811-3475-000 (Reservasi & Delivery Order)</p>
+                    <p><strong>Layanan Pesan Antar:</strong><br />Tersedia via GoFood & WhatsApp Delivery</p>
+                </div>
+
+                <!-- Kolom 4: Menu Favorite -->
+                <div class="footer-col">
+                    <h3>Menu Favorite</h3>
+                    <div class="footer-fav-list">
+                        <div class="footer-fav-item">
+                            <!-- Ganti dengan foto beefmeltique -->
+                            <img src="assets/img/beefmeltique.png" alt="Beef Meltique Mushroom Sauce" />
+                            <span>Beef Meltique Mushroom Sauce</span>
+                        </div>
+                        <div class="footer-fav-item">
+                            <!-- Ganti dengan foto chikenpepper -->
+                            <img src="assets/img/chikenpepper.jpeg" alt="Chiken Pepper Rice" />
+                            <span>Chiken Pepper Rice</span>
+                        </div>
+                        <div class="footer-fav-item">
+                            <!-- Ganti dengan foto matchalatte -->
+                            <img src="assets/img/matchalatte.jpeg" alt="Matcha Latte" />
+                            <span>Matcha Latte</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Bawah Copyright & Sosmed -->
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p class="copyright">Copyright © 2026 Monstera Eatery Bondowoso. All Rights Reserved.</p>
+                <div class="footer-socials">
+                    <!-- TikTok -->
+                    <a href="#" target="_blank" aria-label="TikTok">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="black">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                        </svg>
+                    </a>
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/628113475000" target="_blank" aria-label="WhatsApp">
+                        <svg width="21" height="21" viewBox="0 0 24 24" fill="black">
+                            <path d="M12.031 2C6.508 2 2.016 6.492 2.016 12.015c0 1.766.461 3.49 1.337 5.008L2 22l5.106-1.339a9.97 9.97 0 0 0 4.925 1.298h.004c5.522 0 10.015-4.492 10.015-10.015S17.554 2 12.031 2zm0 18.267h-.003a8.29 8.29 0 0 1-4.228-1.158l-.303-.18-3.03.794.808-2.953-.197-.314a8.268 8.268 0 0 1-1.271-4.441c0-4.568 3.717-8.284 8.287-8.284 4.567 0 8.284 3.716 8.284 8.284 0 4.569-3.717 8.252-8.347 8.252zm4.544-6.205c-.249-.125-1.473-.727-1.701-.81-.228-.083-.394-.125-.56.125-.166.249-.643.81-.789.976-.145.166-.29.187-.539.062-.249-.125-1.052-.388-2.004-1.236-.741-.661-1.241-1.477-1.386-1.726-.145-.249-.015-.384.11-.508.112-.112.249-.291.374-.436.124-.145.166-.249.249-.415.083-.166.041-.312-.021-.436-.062-.125-.56-1.349-.768-1.848-.202-.486-.408-.42-.56-.428h-.477c-.166 0-.436.062-.664.312-.228.249-.872.852-.872 2.076s.893 2.408 1.017 2.574c.125.166 1.757 2.683 4.256 3.762.594.257 1.058.41 1.42.525.597.19 1.14.163 1.569.099.479-.072 1.473-.602 1.681-1.184.208-.581.208-1.08.145-1.184-.062-.104-.228-.166-.477-.291z" />
+                        </svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" target="_blank" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script Toggle Menu Mobile -->
+    <script>
+    // 1. Toggle Navbar di HP
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menuToggle');
+    menuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('open');
+    });
+
+    // 2. Pagination Halaman Menu (<< dan >>)
+    const menuPages = document.querySelectorAll('.menu-page');
+    const prevPageBtn = document.getElementById('prevPageBtn');
+    const nextPageBtn = document.getElementById('nextPageBtn');
+    const menuCatalog = document.querySelector('.menu-catalog');
+    let currentPage = 0;
+
+    function showMenuPage(pageIndex) {
+        currentPage = pageIndex;
+
+        // Tampilkan hanya halaman yang aktif
+        menuPages.forEach((page, idx) => {
+            page.classList.toggle('active', idx === currentPage);
+        });
+
+        // Atur status aktif/nonaktif tombol panah
+        prevPageBtn.disabled = currentPage === 0;
+        nextPageBtn.disabled = currentPage === menuPages.length - 1;
+
+        // Scroll halus kembali ke bagian atas katalog menu
+        menuCatalog.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    prevPageBtn.addEventListener('click', () => {
+        if (currentPage > 0) showMenuPage(currentPage - 1);
+    });
+
+    nextPageBtn.addEventListener('click', () => {
+        if (currentPage < menuPages.length - 1) showMenuPage(currentPage + 1);
+    });
+
+    // =====================================================================
+        // FITUR PENCARIAN HIDANGAN DI NAVBAR (BERLAKU DI SEMUA HALAMAN)
+        // =====================================================================
+        const monsteraSearchList = [
+            // Halaman 1 menu.html
+            { nama: "Ayam Wangi", kategori: "Makanan", harga: "25k" },
+            { nama: "Sego Endok Jomblo", kategori: "Makanan", harga: "15k" },
+            { nama: "Ayam Hitam", kategori: "Makanan", harga: "27k" },
+            { nama: "Sego Endok Cumi Ijo", kategori: "Makanan", harga: "24k" },
+            { nama: "Es jeruk", kategori: "Minuman", harga: "10k" },
+            { nama: "Air Mineral", kategori: "Minuman", harga: "5k" },
+            { nama: "Jus Semangka", kategori: "Minuman", harga: "15k" },
+            { nama: "Jus Alpukat", kategori: "Minuman", harga: "20k" },
+            { nama: "Toast Sandwich", kategori: "Snacks", harga: "20k" },
+            { nama: "Yakiniku Shortplate Burger", kategori: "Snacks", harga: "30k" },
+            { nama: "Crispy Chicken Burger", kategori: "Snacks", harga: "24k" },
+            { nama: "Platter Burger Beef Meltique", kategori: "Snacks", harga: "42k" },
+            { nama: "Siomay udang", kategori: "Dimsum", harga: "18k" },
+            { nama: "Siomay Mozarella", kategori: "Dimsum", harga: "20k" },
+            { nama: "Udang Rambutan", kategori: "Dimsum", harga: "18k" },
+            { nama: "Lumpia Kulit Tahu", kategori: "Dimsum", harga: "18k" },
+            // Halaman 2 menu.html
+            { nama: "Ekspresso", kategori: "Coffe", harga: "12k" },
+            { nama: "Doppio", kategori: "Coffe", harga: "15k" },
+            { nama: "Japanese Coffe", kategori: "Coffe", harga: "22k" },
+            { nama: "V60", kategori: "Coffe", harga: "22k" },
+            { nama: "Strawberry Markisa", kategori: "Non-Cofe Drinks", harga: "18k" },
+            { nama: "Mangga Orange", kategori: "Non-Cofe Drinks", harga: "18k" },
+            { nama: "Strawberry Milk", kategori: "Non-Cofe Drinks", harga: "20k" },
+            { nama: "Blueberry Milk", kategori: "Non-Cofe Drinks", harga: "20k" },
+            { nama: "Matcha Oat Milk", kategori: "Matcha & Tea", harga: "25k" },
+            { nama: "Matcha Tea Milo", kategori: "Matcha & Tea", harga: "22k" },
+            { nama: "Lemon Tea", kategori: "Matcha & Tea", harga: "12k" },
+            { nama: "Markisa Leci Tea", kategori: "Matcha & Tea", harga: "16k" },
+            { nama: "Es Krim Cokelat", kategori: "Dessert", harga: "12k" },
+            { nama: "Es Krim Coffee Black Pink", kategori: "Dessert", harga: "15k" },
+            { nama: "Es Krim Strawberry Salt Caramel", kategori: "Dessert", harga: "15k" },
+            { nama: "Es Krim Red Velvet Popcorn", kategori: "Dessert", harga: "16k" }
+        ];
+
+        const navSearchForm = document.getElementById('navSearchForm');
+        const navSearchInput = document.getElementById('navSearchInput');
+        const navSearchResults = document.getElementById('navSearchResults');
+
+        // Fungsi khusus untuk menyorot & menggulir ke menu saat berada di menu.html
+        function focusMenuOnPage(keyword) {
+            const query = keyword.toLowerCase().trim();
+            const menuItems = Array.from(document.querySelectorAll('.menu-item'));
+
+            // Hapus highlight lama
+            menuItems.forEach(item => item.classList.remove('search-highlight'));
+
+            // Cari kecocokan berdasarkan judul menu, deskripsi, atau judul kategori
+            const matchedItem = menuItems.find(item => {
+                const title = item.querySelector('h3')?.textContent.toLowerCase() || '';
+                const desc = item.querySelector('p')?.textContent.toLowerCase() || '';
+                const cat = item.closest('.menu-category-row')?.querySelector('.menu-category-heading')?.textContent.toLowerCase() || '';
+                return title.includes(query) || desc.includes(query) || cat.includes(query);
+            });
+
+            if (!matchedItem) return false;
+
+            // Jika berada di halaman 2, otomatis aktifkan tab halaman tersebut
+            const parentPage = matchedItem.closest('.menu-page');
+            if (parentPage) {
+                const allPages = Array.from(document.querySelectorAll('.menu-page'));
+                const targetIdx = allPages.indexOf(parentPage);
+                allPages.forEach((p, i) => p.classList.toggle('active', i === targetIdx));
+                if (typeof currentPage !== 'undefined') currentPage = targetIdx;
+
+                const prevBtn = document.getElementById('prevPageBtn');
+                const nextBtn = document.getElementById('nextPageBtn');
+                if (prevBtn) prevBtn.disabled = targetIdx === 0;
+                if (nextBtn) nextBtn.disabled = targetIdx === allPages.length - 1;
+            }
+
+            // Tutup dropdown & menu mobile, lalu scroll + beri highlight
+            navSearchResults.classList.remove('show');
+            if (typeof navbar !== 'undefined') navbar.classList.remove('open');
+
+            matchedItem.classList.add('search-highlight');
+            matchedItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return true;
+        }
+
+        // Arahkan pencarian (jika sudah di menu.html langsung scroll, jika di halaman lain pindah ke menu.html)
+        function goToMenuSearch(keyword) {
+            const cleanKeyword = keyword.trim();
+            if (!cleanKeyword) return;
+
+            if (document.getElementById('menuSectionsWrap')) {
+                const found = focusMenuOnPage(cleanKeyword);
+                if (!found) {
+                    navSearchResults.innerHTML = `<div class="search-empty">Hidangan "${cleanKeyword}" tidak ditemukan.</div>`;
+                    navSearchResults.classList.add('show');
+                }
+            } else {
+                window.location.href = `menu.html?q=${encodeURIComponent(cleanKeyword)}`;
+            }
+        }
+
+        // Tampilkan hasil live dropdown saat mengetik
+        navSearchInput.addEventListener('input', () => {
+            const keyword = navSearchInput.value.toLowerCase().trim();
+            if (!keyword) {
+                navSearchResults.classList.remove('show');
+                navSearchResults.innerHTML = '';
+                return;
+            }
+
+            const matches = monsteraSearchList.filter(item =>
+                item.nama.toLowerCase().includes(keyword) ||
+                item.kategori.toLowerCase().includes(keyword)
+            );
+
+            if (matches.length === 0) {
+                navSearchResults.innerHTML = `<div class="search-empty">Hidangan tidak ditemukan.</div>`;
+            } else {
+                navSearchResults.innerHTML = matches.map(item => `
+                    <div class="search-result-item" data-menu="${item.nama}">
+                        <div>
+                            <span class="search-result-name">${item.nama}</span>
+                            <span class="search-result-cat">${item.kategori}</span>
+                        </div>
+                        <span class="search-result-price">${item.harga}</span>
+                    </div>
+                `).join('');
+            }
+            navSearchResults.classList.add('show');
+        });
+
+        // Klik salah satu item di dropdown hasil pencarian
+        navSearchResults.addEventListener('click', (e) => {
+            const clicked = e.target.closest('.search-result-item');
+            if (!clicked) return;
+            const menuName = clicked.dataset.menu;
+            navSearchInput.value = menuName;
+            goToMenuSearch(menuName);
+        });
+
+        // Tekan Enter di kolom pencarian
+        navSearchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            goToMenuSearch(navSearchInput.value);
+        });
+
+        // Tutup dropdown jika klik di luar area pencarian
+        document.addEventListener('click', (e) => {
+            if (!navSearchForm.contains(e.target)) {
+                navSearchResults.classList.remove('show');
+            }
+        });
+
+        // Otomatis jalankan pencarian saat menu.html dibuka dari halaman lain (?q=...)
+        if (document.getElementById('menuSectionsWrap')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialQuery = urlParams.get('q');
+            if (initialQuery) {
+                navSearchInput.value = initialQuery;
+                setTimeout(() => focusMenuOnPage(initialQuery), 150);
+            }
+        }
+</script>
+
+</body>
+
+</html>

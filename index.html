@@ -1,0 +1,2233 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monstera Eatery</title>
+
+    <!-- Load Font Plus Jakarta Sans & Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Load Ikon Material Symbols Outlined -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
+    <style>
+        /* ===================================================================== */
+        /* RESET & VARIABEL WARNA DASAR                                          */
+        /* ===================================================================== */
+        :root {
+            --bg-dark: #171D19;
+            --bg-green: #135B37;
+            --gold: #8A660E;
+            --gold-light: #BC9A6C;
+            --cream: #EDEAE3;
+            --text-dark: #333333;
+            --text-gray: #4F4F4F;
+            --text-muted: #828282;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            color: var(--text-dark);
+            background: #ffffff;
+            overflow-x: hidden;
+            line-height: 1.5;
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1320px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .section-padding {
+            padding: 96px 0;
+        }
+
+        .section-title {
+            font-size: clamp(32px, 4vw, 48px);
+            font-weight: 700;
+            line-height: 1.18;
+            color: var(--text-dark);
+        }
+
+        .section-subtitle {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.6;
+            margin-top: 12px;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* ===================================================================== */
+        /* 1. NAVBAR                                                             */
+        /* ===================================================================== */
+        .navbar {
+            background: var(--bg-dark);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            width: 100%;
+        }
+
+        .navbar-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 92px;
+            gap: 24px;
+        }
+
+        .brand-logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #ffffff;
+            white-space: nowrap;
+        }
+
+        .brand-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 28px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #F8F5EE;
+            font-size: 20px;
+            font-weight: 700;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--gold);
+        }
+
+        .search-box {
+            position: relative;
+            width: 240px;
+            flex-shrink: 0;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 10px 16px 10px 40px;
+            border-radius: 9999px;
+            border: none;
+            outline: none;
+            background: #F0F5EE;
+            color: #404942;
+            font-family: inherit;
+            font-size: 13px;
+        }
+
+        .search-box .material-symbols-outlined {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            color: #404942;
+            pointer-events: none;
+        }
+
+        .menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: #ffffff;
+            cursor: pointer;
+            padding: 4px;
+        }
+
+        .menu-toggle .material-symbols-outlined {
+            font-size: 32px;
+        }
+
+        /* ===================================================================== */
+        /* 2. HERO BANNER                                                        */
+        /* ===================================================================== */
+        .hero {
+            position: relative;
+            background: var(--bg-green);
+            overflow: hidden;
+            padding: 80px 0 96px;
+            color: #ffffff;
+        }
+
+        .hero-bg-texture {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+
+        .hero-leaf {
+            position: absolute;
+            width: 100px;
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-leaf-1 { top: 18%; left: 46%; transform: rotate(74deg); }
+        .hero-leaf-2 { bottom: 6%; left: 42%; transform: rotate(-126deg); }
+        .hero-leaf-3 { bottom: 18%; left: 3%; transform: rotate(-126deg); }
+
+        .hero-grid {
+            position: relative;
+            z-index: 2;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-greeting {
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .hero-title {
+            font-size: clamp(36px, 4.5vw, 60px);
+            font-weight: 700;
+            line-height: 1.15;
+            margin-bottom: 20px;
+        }
+
+        .hero-desc {
+            font-size: 16px;
+            line-height: 1.6;
+            max-width: 540px;
+            margin-bottom: 36px;
+            opacity: 0.95;
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            min-width: 190px;
+            height: 58px;
+            padding: 0 32px;
+            background: var(--gold);
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            border: 1px solid var(--gold);
+            transition: opacity 0.2s;
+        }
+
+        .btn-primary:hover {
+            opacity: 0.9;
+        }
+
+        .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 190px;
+            height: 58px;
+            padding: 0 32px;
+            background: transparent;
+            color: #ffffff;
+            font-size: 16px;
+            font-weight: 700;
+            border: 1px solid #ffffff;
+            transition: background 0.2s;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.12);
+        }
+
+        .hero-image-wrap {
+            position: relative;
+            max-width: 520px;
+            width: 100%;
+            margin-left: auto;
+            padding: 30px 0 0 36px;
+        }
+
+        .hero-image-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: calc(100% - 36px);
+            height: calc(100% - 30px);
+            border: 1px solid #ffffff;
+            pointer-events: none;
+        }
+
+        .hero-image-wrap img {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            aspect-ratio: 536 / 596;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* ===================================================================== */
+        /* 3. ABOUT US                                                           */
+        /* ===================================================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 72px;
+        }
+
+        .about-visual {
+            position: relative;
+            padding-left: 40px;
+            padding-bottom: 60px;
+        }
+
+        /* Ornamen garis hijau dekoratif di belakang foto */
+        .about-stripes {
+            position: absolute;
+            top: 150px;
+            right: -28px;
+            width: 240px;
+            height: 270px;
+            background: repeating-linear-gradient(
+                to bottom,
+                var(--bg-green) 0px,
+                var(--bg-green) 9px,
+                transparent 9px,
+                transparent 26px
+            );
+            opacity: 0.9;
+            z-index: 0;
+        }
+
+        .about-img-back {
+            position: relative;
+            z-index: 1;
+            width: 88%;
+            margin-left: auto;
+            aspect-ratio: 573 / 642;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .about-img-front {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            z-index: 2;
+            width: 74%;
+            aspect-ratio: 475 / 357;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 6px solid #ffffff;
+            box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+        }
+
+        .eyebrow-label {
+            font-size: 18px;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+        }
+
+        .about-text {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.65;
+            text-align: justify;
+            margin: 20px 0 28px;
+        }
+
+        .checklist {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            margin-bottom: 36px;
+        }
+
+        .checklist li {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-gray);
+        }
+
+        .check-icon {
+            width: 32px;
+            height: 30px;
+            flex-shrink: 0;
+            background: var(--cream);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-rounded {
+            border-radius: 6px;
+            padding: 16px 40px;
+            height: auto;
+            font-size: 18px;
+        }
+
+        /* ===================================================================== */
+        /* 4. MENU CATEGORY                                                      */
+        /* ===================================================================== */
+        .category-layout {
+            margin-top: 64px;
+            display: grid;
+            grid-template-columns: 1fr 340px 1fr;
+            align-items: center;
+            gap: 32px;
+        }
+
+        .category-col {
+            display: flex;
+            flex-direction: column;
+            gap: 36px;
+        }
+
+        .cat-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .cat-col-right .cat-item {
+            flex-direction: row-reverse;
+            text-align: right;
+        }
+
+        .cat-icon {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .cat-icon .material-symbols-outlined {
+            font-size: 32px;
+        }
+
+        .cat-info h3 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .cat-info p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.55;
+        }
+
+        .category-center {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 440px;
+        }
+
+        .center-drink {
+            position: relative;
+            z-index: 2;
+            width: 300px;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+        .center-leaf {
+            position: absolute;
+            width: 220px;
+            opacity: 0.65;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .center-leaf-right {
+            right: -15px;
+            top: 90px;
+            transform: rotate(-5deg);
+        }
+
+        .center-leaf-left {
+            left: -15px;
+            top: 120px;
+            transform: rotate(-69deg);
+        }
+
+        /* ===================================================================== */
+        /* 5. WHY CHOOSE US                                                      */
+        /* ===================================================================== */
+        .why-grid {
+            display: grid;
+            grid-template-columns: 0.95fr 1.05fr;
+            align-items: center;
+            gap: 64px;
+        }
+
+        .why-photo-wrap {
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .why-photo-wrap img {
+            width: 100%;
+            aspect-ratio: 587 / 629;
+            object-fit: cover;
+        }
+
+        .why-quote-card {
+            position: absolute;
+            left: 24px;
+            right: 24px;
+            bottom: 24px;
+            background: #ffffff;
+            border-radius: 6px;
+            padding: 22px 24px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+        }
+
+        .why-quote-card p {
+            font-size: 16px;
+            color: var(--text-gray);
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+
+        .why-quote-card strong {
+            font-size: 16px;
+            color: var(--text-gray);
+        }
+
+        .why-desc {
+            font-size: 17px;
+            color: var(--text-gray);
+            line-height: 1.65;
+            text-align: justify;
+            margin: 20px 0 32px;
+        }
+
+        .why-features {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .why-feature-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+        }
+
+        .why-feature-icon {
+            width: 94px;
+            height: 94px;
+            flex-shrink: 0;
+            background: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #ffffff;
+        }
+
+        .why-feature-icon .material-symbols-outlined {
+            font-size: 50px;
+        }
+
+        .why-feature-body h3 {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-gray);
+            margin-bottom: 6px;
+        }
+
+        .why-feature-body p {
+            font-size: 15px;
+            color: var(--text-gray);
+            line-height: 1.55;
+            text-align: justify;
+        }
+
+        /* ===================================================================== */
+        /* 6. OUR FAVORITES MENU                                                 */
+        /* ===================================================================== */
+        .fav-wrapper {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: 290px 1fr;
+            gap: 28px;
+            align-items: start;
+        }
+
+        .fav-sidebar {
+            background: var(--cream);
+            padding: 28px 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .fav-tab {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 10px 20px;
+            background: #ffffff;
+            color: var(--text-gray);
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            text-align: left;
+            transition: all 0.2s;
+        }
+
+        .fav-tab .material-symbols-outlined {
+            font-size: 24px;
+            color: #1C1B1F;
+        }
+
+        .fav-tab.active,
+        .fav-tab:hover {
+            background: var(--gold);
+            color: #ffffff;
+        }
+
+        .fav-tab.active .material-symbols-outlined,
+        .fav-tab:hover .material-symbols-outlined {
+            color: #ffffff;
+        }
+
+        .fav-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .menu-card {
+            background: #ffffff;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+
+        .menu-card img {
+            width: 100%;
+            aspect-ratio: 312 / 217;
+            object-fit: cover;
+        }
+
+        .menu-card-body {
+            padding: 16px;
+        }
+
+        .menu-card-body h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 6px;
+        }
+
+        .menu-card-body p {
+            font-size: 16px;
+            color: var(--text-muted);
+        }
+
+        .dots-row {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 40px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(188, 154, 108, 0.5);
+        }
+
+        .dot.active {
+            background: var(--gold);
+        }
+
+        /* ===================================================================== */
+        /* 7. MEET OUR TEAM                                                      */
+        /* ===================================================================== */
+        .team-grid {
+            margin-top: 56px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .team-card {
+            background: #ffffff;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.05);
+        }
+
+        .team-photo-box {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .team-photo-box img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            object-position: center top;
+            background: #C4C4C4;
+        }
+
+        .team-socials {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .team-socials a {
+            width: 34px;
+            height: 34px;
+            background: #ffffff;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+        }
+
+        .team-socials a.active {
+            background: var(--gold-light);
+        }
+
+        .team-info {
+            padding: 16px 12px 20px;
+        }
+
+        .team-info h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 4px;
+        }
+
+        .team-info p {
+            font-size: 16px;
+            color: var(--text-dark);
+        }
+
+        /* ===================================================================== */
+        /* 8. ULASAN PENGUNJUNG (TESTIMONI & VIDEO)                              */
+        /* ===================================================================== */
+        .testimonial-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 600px;
+            overflow: hidden;
+        }
+
+        .testimonial-left {
+            position: relative;
+            background: var(--bg-dark);
+            color: #ffffff;
+            padding: 56px 48px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .testimonial-left-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.08;
+            pointer-events: none;
+        }
+
+        .testimonial-content {
+            position: relative;
+            z-index: 2;
+            max-width: 510px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .testimonial-label {
+            font-family: 'Inter', sans-serif;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .testimonial-heading {
+            font-size: clamp(28px, 3.5vw, 44px);
+            font-weight: 700;
+            line-height: 1.2;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-quote-icon {
+            margin-bottom: 20px;
+            opacity: 0.75;
+        }
+
+        .testimonial-text {
+            font-size: 17px;
+            line-height: 1.6;
+            margin-bottom: 28px;
+        }
+
+        .testimonial-avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 12px;
+        }
+
+        .testimonial-name {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .testimonial-role {
+            font-size: 16px;
+            margin-bottom: 24px;
+            opacity: 0.9;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .testimonial-dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--cream);
+        }
+
+        .testimonial-dots span.active {
+            background: var(--gold);
+        }
+
+        .testimonial-right {
+            position: relative;
+            min-height: 360px;
+        }
+
+        .testimonial-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #ffffff;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        /* ===================================================================== */
+        /* 9. FOOTER                                                             */
+        /* ===================================================================== */
+        .footer {
+            background: var(--bg-dark);
+            color: #ffffff;
+            padding-top: 88px;
+        }
+
+        .newsletter-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 32px;
+            padding-bottom: 56px;
+            border-bottom: 1px solid var(--gold);
+        }
+
+        .newsletter-info h2 {
+            font-size: clamp(24px, 2.5vw, 32px);
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .newsletter-info p {
+            font-size: 16px;
+            opacity: 0.9;
+            max-width: 580px;
+        }
+
+        .newsletter-form {
+            display: flex;
+            width: 100%;
+            max-width: 459px;
+            height: 56px;
+            border-radius: 4px;
+            overflow: hidden;
+            flex-shrink: 0;
+        }
+
+        .newsletter-form input {
+            flex: 1;
+            background: var(--gold);
+            border: none;
+            outline: none;
+            padding: 0 20px;
+            color: #ffffff;
+            font-family: inherit;
+            font-size: 16px;
+        }
+
+        .newsletter-form input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .newsletter-form button {
+            width: 140px;
+            background: #ffffff;
+            color: var(--gold-light);
+            border: none;
+            font-family: inherit;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 0.8fr 1fr 1.1fr;
+            gap: 40px;
+            padding: 56px 0 64px;
+        }
+
+        .footer-col h3 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 24px;
+        }
+
+        .footer-about-text {
+            font-size: 16px;
+            line-height: 1.65;
+            text-align: justify;
+            margin-bottom: 28px;
+            opacity: 0.95;
+        }
+
+        .opening-hours {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .clock-box {
+            width: 72px;
+            height: 68px;
+            flex-shrink: 0;
+            background: var(--gold);
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .opening-hours-text strong {
+            display: block;
+            font-size: 18px;
+            font-weight: 400;
+            margin-bottom: 4px;
+        }
+
+        .opening-hours-text span {
+            display: block;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .footer-links {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            font-size: 16px;
+            color: #ffffff;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-light);
+        }
+
+        .footer-contact p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+
+        .footer-fav-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .footer-fav-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .footer-fav-item img {
+            width: 80px;
+            height: 80px;
+            flex-shrink: 0;
+            object-fit: cover;
+            object-position: center;
+            border-radius: 4px;
+        }
+
+        .footer-fav-item span {
+            font-size: 16px;
+            line-height: 1.5;
+        }
+
+        .footer-bottom {
+            background: #4F4F4F;
+            padding: 28px 0;
+        }
+
+        .footer-bottom-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .copyright {
+            font-size: 16px;
+        }
+
+        .footer-socials {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-socials a {
+            width: 35px;
+            height: 33px;
+            background: #ffffff;
+            border-radius: 2px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ===================================================================== */
+        /* MEDIA QUERIES (RESPONSIVE TABLET & MOBILE)                            */
+        /* ===================================================================== */
+
+        /* Tablet & Layar Laptop Kecil (<= 1024px) */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 18px;
+            }
+
+            .nav-links a {
+                font-size: 17px;
+            }
+
+            .search-box {
+                width: 190px;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .why-grid,
+            .testimonial-box {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .hero-image-wrap {
+                margin: 0 auto;
+            }
+
+            .category-layout {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .category-center {
+                order: -1;
+                min-height: 320px;
+            }
+
+            .cat-col-right .cat-item {
+                flex-direction: row;
+                text-align: left;
+            }
+
+            .fav-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .fav-sidebar {
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 16px;
+            }
+
+            .fav-tab {
+                flex: 1 1 150px;
+                font-size: 16px;
+                padding: 10px 14px;
+            }
+
+            .fav-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .newsletter-bar {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .newsletter-form {
+                max-width: 100%;
+            }
+
+            .footer-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        /* Mobile / HP (<= 768px) */
+        @media (max-width: 768px) {
+            .section-padding {
+                padding: 64px 0;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .navbar-inner {
+                flex-wrap: wrap;
+                padding-top: 16px;
+                padding-bottom: 16px;
+                min-height: auto;
+            }
+
+            .nav-links,
+            .search-box {
+                display: none;
+                width: 100%;
+            }
+
+            .navbar.open .nav-links {
+                display: flex;
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 16px 0 8px;
+                gap: 14px;
+                border-top: 1px solid rgba(255, 255, 255, 0.12);
+            }
+
+            .navbar.open .search-box {
+                display: block;
+                margin-top: 8px;
+            }
+
+            .hero {
+                padding: 48px 0 64px;
+            }
+
+            .hero-leaf {
+                width: 64px;
+            }
+
+            .hero-buttons a {
+                flex: 1 1 140px;
+            }
+
+            .about-visual {
+                padding-left: 16px;
+                padding-bottom: 40px;
+            }
+
+            .about-stripes {
+                right: 0;
+                width: 160px;
+                height: 180px;
+            }
+
+            .checklist li {
+                font-size: 16px;
+            }
+
+            .why-feature-item {
+                flex-direction: column;
+                gap: 12px;
+            }
+
+            .why-feature-icon {
+                width: 72px;
+                height: 72px;
+            }
+
+            .why-feature-icon .material-symbols-outlined {
+                font-size: 38px;
+            }
+
+            .why-quote-card {
+                position: static;
+                margin-top: 16px;
+                border: 1px solid #eee;
+            }
+
+            .fav-grid,
+            .team-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .testimonial-left {
+                padding: 40px 24px;
+            }
+
+            .newsletter-form {
+                flex-direction: column;
+                height: auto;
+                gap: 10px;
+                overflow: visible;
+            }
+
+            .newsletter-form input,
+            .newsletter-form button {
+                width: 100%;
+                height: 50px;
+                border-radius: 4px;
+            }
+
+            .footer-bottom-inner {
+                justify-content: center;
+                text-align: center;
+            }
+        }
+
+            .menu-card {
+                animation: fadeInMenu 0.25s ease;
+            }   
+
+            @keyframes fadeInMenu {
+                from { opacity: 0; transform: translateY(8px); }
+                to { opacity: 1; transform: translateY(0); }
+            }
+
+            /* ===================================================================== */
+        /* DROPDOWN HASIL PENCARIAN NAVBAR & HIGHLIGHT MENU                      */
+        /* ===================================================================== */
+        .search-results {
+            display: none;
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            width: 300px;
+            max-height: 320px;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.22);
+            border: 1px solid #e5e5e5;
+            z-index: 1200;
+        }
+
+        .search-results.show {
+            display: block;
+        }
+
+        .search-result-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            padding: 12px 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            text-align: left;
+            transition: background 0.15s;
+        }
+
+        .search-result-item:last-child {
+            border-bottom: none;
+        }
+
+        .search-result-item:hover {
+            background: #FAF7F2;
+        }
+
+        .search-result-name {
+            display: block;
+            font-size: 14px;
+            font-weight: 700;
+            color: #333333;
+        }
+
+        .search-result-cat {
+            display: block;
+            font-size: 12px;
+            color: #828282;
+        }
+
+        .search-result-price {
+            font-size: 14px;
+            font-weight: 700;
+            color: #8A660E;
+            white-space: nowrap;
+        }
+
+        .search-empty {
+            padding: 16px;
+            text-align: center;
+            font-size: 13px;
+            color: #828282;
+        }
+
+        /* Efek sorotan saat menu ditemukan di menu.html */
+        .menu-item.search-highlight {
+            background: #FFF8E7;
+            padding: 16px 16px 24px;
+            border-radius: 8px;
+            border-left: 4px solid #8A660E;
+            transition: background 0.4s ease;
+        }
+
+        @media (max-width: 768px) {
+            .search-results {
+                width: 100%;
+                left: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ===================================================================== -->
+    <!-- 1. SECTION NAVBAR (NAVIGASI ATAS)                                     -->
+    <!-- ===================================================================== -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-inner">
+            <!-- Logo Brand -->
+            <a href="index.html" class="brand-logo">Monstera<span>Eatery</span></a>
+
+            <!-- Tombol Hamburger (Hanya Muncul di HP) -->
+            <button class="menu-toggle" id="menuToggle" aria-label="Buka Menu">
+                <span class="material-symbols-outlined">menu</span>
+            </button>
+
+            <!-- Daftar Link Navigasi -->
+            <ul class="nav-links">
+                <li><a href="index.html" class="active">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="menu.html">Menu</a></li>
+                <li><a href="reservasi.html">Reservasi</a></li>
+                <li><a href="galeri.html">Galeri</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+
+            <!-- Kolom Pencarian (Aktif) -->
+            <form class="search-box" id="navSearchForm" autocomplete="off">
+                <span class="material-symbols-outlined">search</span>
+                <input type="text" id="navSearchInput" placeholder="Cari hidangan Monstera..." />
+                <div class="search-results" id="navSearchResults"></div>
+            </form>
+        </div>
+    </header>
+
+
+    <!-- ===================================================================== -->
+    <!-- 2. SECTION HERO BANNER                                                -->
+    <!-- ===================================================================== -->
+    <section class="hero">
+        <!-- Tekstur Daun Background -->
+        <img class="hero-bg-texture" src="assets/img/bg.png" alt="" />
+
+        <!-- 3 Hiasan Daun Melayang -->
+        <img class="hero-leaf hero-leaf-1" src="assets/img/daun.png" alt="" />
+        <img class="hero-leaf hero-leaf-2" src="assets/img/daun.png" alt="" />
+        <img class="hero-leaf hero-leaf-3" src="assets/img/daun.png" alt="" />
+
+        <div class="container hero-grid">
+            <!-- Sisi Kiri: Teks & Tombol CTA -->
+            <div>
+                <p class="hero-greeting">Selamat Datang di Monstera Cafe</p>
+                <h1 class="hero-title">Sajian Istimewa,<br />Suasana Penuh Cerita</h1>
+                <p class="hero-desc">Nikmati ragam hidangan lezat dalam suasana kafe yang nyaman dan asri.</p>
+                <div class="hero-buttons">
+                    <a href="reservasi.html" class="btn-primary">Reservasi Meja</a>
+                    <a href="menu.html" class="btn-outline">Lihat Menu</a>
+                </div>
+            </div>
+
+            <!-- Sisi Kanan: Foto Kafe dengan Bingkai Putih -->
+            <div class="hero-image-wrap">
+                <div class="hero-image-frame"></div>
+                <img src="assets/img/ruangkasir.jpeg" alt="Suasana Kasir Monstera Eatery" />
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 3. SECTION ABOUT US                                                   -->
+    <!-- ===================================================================== -->
+    <section class="section-padding">
+        <div class="container about-grid">
+            <!-- Sisi Kiri: Foto Berlapis + Ornamen Garis Hijau -->
+            <div class="about-visual">
+                <div class="about-stripes"></div>
+                <img class="about-img-back" src="assets/img/minuman.jpeg" alt="Minuman Monstera Eatery" />
+                <img class="about-img-front" src="assets/img/ruang1.jpeg" alt="Interior Monstera Eatery" />
+            </div>
+
+            <!-- Sisi Kanan: Teks Tentang Kami & Poin Keunggulan -->
+            <div>
+                <p class="eyebrow-label">About us</p>
+                <h2 class="section-title">Tumbuh dari Langkah Kecil Menjadi Ruang Penuh Cerita</h2>
+                <p class="about-text">
+                    Berawal dari langkah sederhana dalam memanfaatkan sudut ruang usaha, Monstera Eatery terus berinovasi melewati berbagai fase perjalanan. Kini kami hadir sebagai ruang bersantap yang memadukan suasana asri dengan ragam hidangan lezat untuk menemani setiap momen kebersamaan.
+                </p>
+
+                <!-- 3 Poin Centang -->
+                <ul class="checklist">
+                    <li>
+                        <span class="check-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F242E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </span>
+                        Tumbuh dari Kreativitas & Inovasi Usaha
+                    </li>
+                    <li>
+                        <span class="check-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F242E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </span>
+                        Ruang Nyaman dari Pemanfaatan Berkelanjutan
+                    </li>
+                    <li>
+                        <span class="check-icon">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#1F242E" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                        </span>
+                        Sajian Lengkap untuk Bersantap & Berbagi Cerita
+                    </li>
+                </ul>
+
+                <!-- Tombol Baca Cerita Kami -->
+                <a href="about.html" class="btn-primary btn-rounded">
+                    <span>Baca Cerita Kami</span>
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 4. SECTION MENU CATEGORY                                              -->
+    <!-- ===================================================================== -->
+    <section class="section-padding">
+        <div class="container">
+            <h2 class="section-title text-center">Menu Category</h2>
+
+            <div class="category-layout">
+                <!-- Kolom Kiri (4 Kategori) -->
+                <div class="category-col">
+                    <!-- 1. Makanan -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: rgba(172, 242, 194, 0.40); color: #004224;">
+                            <span class="material-symbols-outlined">restaurant</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Makanan</h3>
+                            <p>Aneka hidangan berat mengenyangkan mulai dari Steak, Hot Plate, Ramen, Bento, hingga Nasi Goreng dan Ayam Geprek.</p>
+                        </div>
+                    </div>
+
+                    <!-- 2. Minuman -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: #D1E9D2; color: #546A57;">
+                            <span class="material-symbols-outlined">local_bar</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Minuman</h3>
+                            <p>Ragam pelepas dahaga segar mulai dari Sparkling Soda, Splash Fruit, Yakult Series, Jus Buah, hingga Cincau Hijau.</p>
+                        </div>
+                    </div>
+
+                    <!-- 3. Snacks -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: #FFDEA3; color: #261900;">
+                            <span class="material-symbols-outlined">cookie</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Snacks</h3>
+                            <p>Camilan gurih teman nongkrong seperti Mini Pizza, Burger, Platter 3 in 1, Roti Bakar, Pisang Goreng, dan Baso Aci.</p>
+                        </div>
+                    </div>
+
+                    <!-- 4. Dessert -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: rgba(238, 192, 99, 0.40); color: #684B00;">
+                            <span class="material-symbols-outlined">cake</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Dessert</h3>
+                            <p>Hidangan penutup manis yang memanjakan lidah, mulai dari 16 varian rasa Original Gelato, Waffle, hingga Croffle.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom Tengah: Minuman & Daun -->
+                <div class="category-center">
+                    <img class="center-leaf center-leaf-right" src="assets/img/daunpanjang.png" alt="" />
+                    <img class="center-leaf center-leaf-left" src="assets/img/daunpanjang.png" alt="" />
+                    <img class="center-drink" src="assets/img/matchaindex.png" alt="Matcha ME Coffee" />
+                </div>
+
+                <!-- Kolom Kanan (4 Kategori) -->
+                <div class="category-col cat-col-right">
+                    <!-- 5. Dimsum -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: #D1E9D2; color: #546A57;">
+                            <span class="material-symbols-outlined">bento</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Dimsum</h3>
+                            <p>Sajian dimsum hangat dengan pilihan Siomay Mozarella, Ayam Udang, Mercon, Kepiting, hingga Dimsum Saus Mentai.</p>
+                        </div>
+                    </div>
+
+                    <!-- 6. Coffe -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: #FFDEA3; color: #684B00;">
+                            <span class="material-symbols-outlined">coffee</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Coffe</h3>
+                            <p>Racikan kopi pilihan dari biji kopi Ijen & blend berkualitas, mulai dari Kopi Susu Aren, Latte, hingga Manual Brew.</p>
+                        </div>
+                    </div>
+
+                    <!-- 7. Non-Coffe -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: rgba(209, 233, 210, 0.60); color: #4E6352;">
+                            <span class="material-symbols-outlined">emoji_food_beverage</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Non-Coffe</h3>
+                            <p>Minuman creamy tanpa kopi dengan pilihan Milk Series, Oat Milk, Coconut Milk, serta Korean Milk yang lembut.</p>
+                        </div>
+                    </div>
+
+                    <!-- 8. Matcha & Tea -->
+                    <div class="cat-item">
+                        <div class="cat-icon" style="background: #ACF2C2; color: #004224;">
+                            <span class="material-symbols-outlined">spa</span>
+                        </div>
+                        <div class="cat-info">
+                            <h3>Matcha & Tea</h3>
+                            <p>Perpaduan seri Matcha Mania yang creamy serta seduhan teh premium ME-CHA Special Tea dan Iced Fruit Tea.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 5. SECTION WHY CHOOSE US                                              -->
+    <!-- ===================================================================== -->
+    <section class="section-padding">
+        <div class="container why-grid">
+            <!-- Sisi Kiri: Foto Ruangan & Kartu Kutipan -->
+            <div class="why-photo-wrap">
+                <img src="assets/img/ruang2.jpeg" alt="Suasana Ruangan Cafe Monstera" />
+                <div class="why-quote-card">
+                    <p>Nugas atau kumpul bareng keluarga jadi lebih tenang karena ruangannya adem dan bebas asap rokok. Porsi makanan beratnya bikin kenyang dan harganya pas di kantong mahasiswa!</p>
+                    <strong>Alen Barg</strong>
+                </div>
+            </div>
+
+            <!-- Sisi Kanan: Keunggulan Monstera -->
+            <div>
+                <p class="eyebrow-label">Why Choose us</p>
+                <h2 class="section-title">Santap Lezat, Suasana Sejuk & Nyaman</h2>
+                <p class="why-desc">
+                    Cafe Monstera hadir sebagai pilihan utama tempat nongkrong, nugas, dan berkumpul bersama keluarga. Kami menyediakan area indoor ber-AC yang bebas asap rokok, susunan meja yang lega, serta pilihan menu makanan berat dan kopi berkualitas dengan harga terjangkau.
+                </p>
+
+                <div class="why-features">
+                    <!-- Keunggulan 1 -->
+                    <div class="why-feature-item">
+                        <div class="why-feature-icon">
+                            <span class="material-symbols-outlined">ac_unit</span>
+                        </div>
+                        <div class="why-feature-body">
+                            <h3>Indoor AC Bebas Asap Rokok</h3>
+                            <p>Ruangan sejuk dan nyaman tanpa gangguan asap rokok, cocok untuk nugas, bekerja, maupun kumpul keluarga.</p>
+                        </div>
+                    </div>
+
+                    <!-- Keunggulan 2 -->
+                    <div class="why-feature-item">
+                        <div class="why-feature-icon">
+                            <span class="material-symbols-outlined">ramen_dining</span>
+                        </div>
+                        <div class="why-feature-body">
+                            <h3>Makanan & Minuman Lezat Mengenyangkan</h3>
+                            <p>Menyediakan ragam menu eatery andalan mulai dari Chicken Crispy Steak, Hot Plate, hingga aneka camilan dan gelato yang siap memanjakan lidah.</p>
+                        </div>
+                    </div>
+
+                    <!-- Keunggulan 3 -->
+                    <div class="why-feature-item">
+                        <div class="why-feature-icon">
+                            <svg width="50" height="50" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                                <circle cx="7.5" cy="5.5" r="2" />
+                                <path d="M3.5 11h1.5v6.5h4.5V19H5v2.5H3.5V11z" />
+                                <path d="M6 9.5c0-.8.7-1.5 1.5-1.5h1c.7 0 1.3.4 1.6 1.1l.9 2.4h2.5v1.5h-3.4l-.8-2v4h2.2c.8 0 1.5.7 1.5 1.5v5h-1.8v-4.5H7.5C6.7 17 6 16.3 6 15.5v-6z" />
+                                <path d="M13.5 13h7.5v1.5h-3v5.5h1.5v1.5h-4.5V20h1.5v-5.5h-3V13z" />
+                                <path d="M15.5 10.5h3.5c0 1.1-.8 2-1.75 2s-1.75-.9-1.75-2z" />
+                            </svg>
+                        </div>
+                        <div class="why-feature-body">
+                            <h3>Fasilitas Lengkap & Ramah Kantong</h3>
+                            <p>Dilengkapi colokan listrik, area tempat duduk lega, serta harga menu yang ramah di kantong pelajar, mahasiswa, dan keluarga.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 6. SECTION OUR FAVORITES MENU                                         -->
+    <!-- ===================================================================== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Our Favorites Menu</h2>
+                <p class="section-subtitle">Rekomendasi hidangan terenak dan paling diminati di Cafe Monstera Bondowoso.</p>
+            </div>
+
+            <div class="fav-wrapper">
+                <!-- Sidebar Filter Kategori -->
+                <aside class="fav-sidebar">
+                    <button class="fav-tab" type="button" data-category="makanan"><span class="material-symbols-outlined">restaurant</span> Makanan</button>
+                    <button class="fav-tab active" type="button" data-category="minuman"><span class="material-symbols-outlined">local_bar</span> Minuman</button>
+                    <button class="fav-tab" type="button" data-category="snacks"><span class="material-symbols-outlined">cookie</span> Snacks</button>
+                    <button class="fav-tab" type="button" data-category="dessert"><span class="material-symbols-outlined">cake</span> Dessert</button>
+                    <button class="fav-tab" type="button" data-category="dimsum"><span class="material-symbols-outlined">bento</span> Dimsum</button>
+                    <button class="fav-tab" type="button" data-category="coffee"><span class="material-symbols-outlined">coffee</span> Coffee</button>
+                    <button class="fav-tab" type="button" data-category="non-coffee"><span class="material-symbols-outlined">emoji_food_beverage</span> Non-Coffe</button>
+                    <button class="fav-tab" type="button" data-category="matcha-tea"><span class="material-symbols-outlined">spa</span> Matcha & Tea</button>
+                </aside>
+
+                <!-- Grid 6 Kartu Menu -->
+                <div class="fav-grid" id="favMenuGrid"></div>
+            </div>
+
+            <!-- Indikator Pagination -->
+            <div class="dots-row">
+                <span class="dot"></span>
+                <span class="dot active"></span>
+                <span class="dot"></span>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 7. SECTION MEET OUR TEAM                                              -->
+    <!-- ===================================================================== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="text-center">
+                <h2 class="section-title">Meet our team</h2>
+                <p class="section-subtitle" style="max-width: 568px; margin-left: auto; margin-right: auto;">
+                    Orang-orang berdedikasi yang siap menyajikan hidangan lezat dan pengalaman terbaik untuk Anda di Cafe Monstera.
+                </p>
+            </div>
+
+            <div class="team-grid">
+                <!-- Tim 1: Bulbul Hassan -->
+                <div class="team-card">
+                    <div class="team-photo-box">
+                        <img src="assets/img/team1.jpg" alt="Bulbul Hassan" />
+                    </div>
+                    <div class="team-info">
+                        <h3>Bulbul Hassan</h3>
+                        <p>Chef</p>
+                    </div>
+                </div>
+
+                <!-- Tim 2: Jorina Begum + Ikon Sosmed -->
+                <div class="team-card">
+                    <div class="team-photo-box">
+                        <img src="assets/img/team2.jpg" alt="Jorina Begum" />
+                        <div class="team-socials">
+                            <a href="#" aria-label="Facebook">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="#BC9A6C"><path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg>
+                            </a>
+                            <a href="#" class="active" aria-label="Twitter">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="white"><path d="M22.162 5.656a8.384 8.384 0 0 1-2.402.658A4.196 4.196 0 0 0 21.6 4c-.82.488-1.719.83-2.656 1.015a4.182 4.182 0 0 0-7.126 3.814 11.874 11.874 0 0 1-8.62-4.37 4.168 4.168 0 0 0-.566 2.103c0 1.45.738 2.731 1.86 3.481a4.168 4.168 0 0 1-1.894-.523v.052a4.185 4.185 0 0 0 3.355 4.101 4.21 4.21 0 0 1-1.89.072A4.185 4.185 0 0 0 7.97 16.65a8.394 8.394 0 0 1-6.191 1.732 11.83 11.83 0 0 0 6.41 1.88c7.693 0 11.9-6.373 11.9-11.9 0-.18-.005-.362-.013-.54a8.496 8.496 0 0 0 2.087-2.165z"/></svg>
+                            </a>
+                            <a href="#" aria-label="Vimeo">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="#BC9A6C"><path d="M22.875 7.222c-.094 2.055-1.532 4.872-4.312 8.45-2.875 3.738-5.308 5.608-7.3 5.608-1.233 0-2.275-1.138-3.128-3.413-.568-2.087-1.137-4.173-1.706-6.26-.632-2.275-1.31-3.412-2.036-3.412-.158 0-.712.332-1.662.995l-.995-1.28c1.044-.916 2.072-1.833 3.084-2.75 1.39-1.2 2.434-1.833 3.13-1.897 1.644-.158 2.656.964 3.036 3.365.41 2.592.695 4.204.853 4.836.474 2.15.995 3.224 1.564 3.224.442 0 1.106-.698 1.992-2.094.885-1.396 1.359-2.457 1.422-3.184.126-1.2-.348-1.8-1.422-1.8-.506 0-1.028.115-1.565.347 1.043-3.412 3.035-5.07 5.976-4.976 2.18.063 3.208 1.474 3.082 4.238z"/></svg>
+                            </a>
+                            <a href="#" aria-label="Pinterest">
+                                <svg width="15" height="15" viewBox="0 0 24 24" fill="#BC9A6C"><path d="M12.017 2C6.486 2 2 6.486 2 12.017c0 4.242 2.636 7.868 6.357 9.318-.088-.792-.167-2.006.035-2.87.182-.78 1.172-4.97 1.172-4.97s-.299-.6-.299-1.486c0-1.39.806-2.428 1.81-2.428.852 0 1.264.64 1.264 1.408 0 .858-.546 2.14-.828 3.33-.236.995.5 1.807 1.48 1.807 1.778 0 3.144-1.874 3.144-4.58 0-2.393-1.72-4.068-4.177-4.068-2.845 0-4.515 2.135-4.515 4.34 0 .859.331 1.781.745 2.281a.3.3 0 0 1 .069.288l-.278 1.133c-.044.183-.145.223-.335.134-1.249-.581-2.03-2.407-2.03-3.874 0-3.154 2.292-6.052 6.608-6.052 3.469 0 6.165 2.473 6.165 5.776 0 3.447-2.173 6.22-5.19 6.22-1.013 0-1.965-.525-2.291-1.148l-.623 2.378c-.226.869-.835 1.958-1.244 2.621.937.29 1.931.446 2.962.446 5.531 0 10.017-4.486 10.017-10.017C22.034 6.486 17.548 2 12.017 2z"/></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="team-info">
+                        <h3>Jorina Begum</h3>
+                        <p>Kasir</p>
+                    </div>
+                </div>
+
+                <!-- Tim 3: M.Mohammad Nur -->
+                <div class="team-card">
+                    <div class="team-photo-box">
+                        <img src="assets/img/team3.jpg" alt="M.Mohammad Nur" />
+                    </div>
+                    <div class="team-info">
+                        <h3>M.Mohammad Nur</h3>
+                        <p>Manajer</p>
+                    </div>
+                </div>
+
+                <!-- Tim 4: Herry Budi Suyono -->
+                <div class="team-card">
+                    <div class="team-photo-box">
+                        <img src="assets/img/team4.jpg" alt="Herry Budi Suyono" />
+                    </div>
+                    <div class="team-info">
+                        <h3>Herry Budi Suyono</h3>
+                        <p>Founder & Owner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 8. SECTION ULASAN PENGUNJUNG (TESTIMONI & VIDEO)                      -->
+    <!-- ===================================================================== -->
+    <section class="section-padding">
+        <div class="container">
+            <div class="testimonial-box">
+                <!-- Panel Kiri: Testimoni Gelap -->
+                <div class="testimonial-left">
+                    <img class="testimonial-left-bg" src="assets/img/bg.png" alt="" />
+                    <div class="testimonial-content">
+                        <p class="testimonial-label">Ulasan Pengunjung</p>
+                        <h2 class="testimonial-heading">Kata Pelanggan Setia</h2>
+
+                        <!-- Ikon Tanda Kutip -->
+                        <svg class="testimonial-quote-icon" width="48" height="40" viewBox="0 0 48 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 6H19V21C19 29 14 33 6 35V30C11 28.5 13.5 25.5 14 21H4V6Z" stroke="#8A660E" stroke-width="1.5" stroke-linejoin="round" />
+                            <path d="M27 6H42V21C42 29 37 33 29 35V30C34 28.5 36.5 25.5 37 21H27V6Z" stroke="#8A660E" stroke-width="1.5" stroke-linejoin="round" />
+                        </svg>
+
+                        <p class="testimonial-text">
+                            Tempat nongkrong paling nyaman di Bondowoso! Ruangan indoor-nya ber-AC, sejuk, dan yang paling penting bebas asap rokok jadi tenang banget pas nugas atau kumpul bareng keluarga. Porsi makanan beratnya mengenyangkan dan harganya pas di kantong mahasiswa.
+                        </p>
+
+                        <img class="testimonial-avatar" src="assets/img/ceo.jpg" alt="William carry" />
+                        <div class="testimonial-name">William carry</div>
+                        <div class="testimonial-role">Mahasiswa</div>
+
+                        <div class="testimonial-dots">
+                            <span></span>
+                            <span></span>
+                            <span class="active"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Panel Kanan: Foto Depan Kafe + Tombol Play -->
+                <div class="testimonial-right">
+                    <img src="assets/img/cafedepan.jpeg" alt="Tampak Depan Monstera Eatery" />
+                    <button class="play-btn" type="button" aria-label="Putar Video">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A660E" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="margin-left: 3px;">
+                            <polygon points="6 4 20 12 6 20 6 4"></polygon>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- ===================================================================== -->
+    <!-- 9. SECTION FOOTER                                                     -->
+    <!-- ===================================================================== -->
+    <footer class="footer">
+        <div class="container">
+            <!-- Baris Newsletter & Garis Pemisah Kuning -->
+            <div class="newsletter-bar">
+                <div class="newsletter-info">
+                    <h2>Ingin Info Promo & Menu Terbaru Kami?</h2>
+                    <p>Masukkan email Anda untuk mendapatkan kabar dan penawaran menarik langsung dari Cafe Monstera.</p>
+                </div>
+                <form class="newsletter-form" onsubmit="event.preventDefault();">
+                    <input type="email" placeholder="Enter Your Email" required />
+                    <button type="submit">Kirim</button>
+                </form>
+            </div>
+
+            <!-- 4 Kolom Utama Footer -->
+            <div class="footer-grid">
+                <!-- Kolom 1: About Us & Jam Buka -->
+                <div class="footer-col">
+                    <h3>About Us.</h3>
+                    <p class="footer-about-text">
+                        Cafe Monstera (Monstera Eatery) adalah pilihan utama tempat nongkrong, nugas, dan berkumpul keluarga di Bondowoso. Menghadirkan suasana sejuk dengan ruang indoor ber-AC bebas asap rokok serta ragam pilihan makanan berat dan camilan lezat yang ramah di kantong.
+                    </p>
+                    <div class="opening-hours">
+                        <div class="clock-box">
+                            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <circle cx="12" cy="12" r="9.5"></circle>
+                                <polyline points="12 7 12 12 15.5 14.5"></polyline>
+                            </svg>
+                        </div>
+                        <div class="opening-hours-text">
+                            <strong>Jam Buka Cafe</strong>
+                            <span>Senin – Minggu: 10.00 – 22.00 WIB</span>
+                            <span>Setiap Hari Buka</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kolom 2: Tautan Penting -->
+                <div class="footer-col">
+                    <h3>Tautan Penting</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="menu.html">Menu</a></li>
+                        <li><a href="reservasi.html">Reservasi</a></li>
+                        <li><a href="galeri.html">Galeri</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <!-- Kolom 3: Lokasi & Kontak -->
+                <div class="footer-col footer-contact">
+                    <h3>Lokasi & Kontak</h3>
+                    <p><strong>Alamat Kafe:</strong><br />Jl. Letjen Suprapto No. 44 (Utara SDN Dabasah 2 / Percetakan D Print), Bondowoso</p>
+                    <p><strong>Kontak / WhatsApp:</strong><br />0811-3475-000 (Reservasi & Delivery Order)</p>
+                    <p><strong>Layanan Pesan Antar:</strong><br />Tersedia via GoFood & WhatsApp Delivery</p>
+                </div>
+
+                <!-- Kolom 4: Menu Favorite -->
+                <div class="footer-col">
+                    <h3>Menu Favorite</h3>
+                    <div class="footer-fav-list">
+                        <div class="footer-fav-item">
+                            <img src="assets/img/beefmeltique.png" alt="Beef Meltique Mushroom Sauce" />
+                            <span>Beef Meltique Mushroom Sauce</span>
+                        </div>
+                        <div class="footer-fav-item">
+                            <img src="assets/img/chikenpepper.jpeg" alt="Chiken Pepper Rice" />
+                            <span>Chiken Pepper Rice</span>
+                        </div>
+                        <div class="footer-fav-item">
+                            <img src="assets/img/matchalatte.jpeg" alt="Matcha Latte" />
+                            <span>Matcha Latte</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bar Bawah Copyright & Sosmed -->
+        <div class="footer-bottom">
+            <div class="container footer-bottom-inner">
+                <p class="copyright">Copyright © 2026 Monstera Eatery Bondowoso. All Rights Reserved.</p>
+                <div class="footer-socials">
+                    <!-- TikTok -->
+                    <a href="#" target="_blank" aria-label="TikTok">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="black">
+                            <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z" />
+                        </svg>
+                    </a>
+                    <!-- WhatsApp -->
+                    <a href="https://wa.me/628113475000" target="_blank" aria-label="WhatsApp">
+                        <svg width="21" height="21" viewBox="0 0 24 24" fill="black">
+                            <path d="M12.031 2C6.508 2 2.016 6.492 2.016 12.015c0 1.766.461 3.49 1.337 5.008L2 22l5.106-1.339a9.97 9.97 0 0 0 4.925 1.298h.004c5.522 0 10.015-4.492 10.015-10.015S17.554 2 12.031 2zm0 18.267h-.003a8.29 8.29 0 0 1-4.228-1.158l-.303-.18-3.03.794.808-2.953-.197-.314a8.268 8.268 0 0 1-1.271-4.441c0-4.568 3.717-8.284 8.287-8.284 4.567 0 8.284 3.716 8.284 8.284 0 4.569-3.717 8.252-8.347 8.252zm4.544-6.205c-.249-.125-1.473-.727-1.701-.81-.228-.083-.394-.125-.56.125-.166.249-.643.81-.789.976-.145.166-.29.187-.539.062-.249-.125-1.052-.388-2.004-1.236-.741-.661-1.241-1.477-1.386-1.726-.145-.249-.015-.384.11-.508.112-.112.249-.291.374-.436.124-.145.166-.249.249-.415.083-.166.041-.312-.021-.436-.062-.125-.56-1.349-.768-1.848-.202-.486-.408-.42-.56-.428h-.477c-.166 0-.436.062-.664.312-.228.249-.872.852-.872 2.076s.893 2.408 1.017 2.574c.125.166 1.757 2.683 4.256 3.762.594.257 1.058.41 1.42.525.597.19 1.14.163 1.569.099.479-.072 1.473-.602 1.681-1.184.208-.581.208-1.08.145-1.184-.062-.104-.228-.166-.477-.291z" />
+                        </svg>
+                    </a>
+                    <!-- Instagram -->
+                    <a href="#" target="_blank" aria-label="Instagram">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="black" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script Toggle Menu Mobile & Status Aktif Tab Kategori -->
+    <script>
+    // 1. Toggle Navbar di HP
+    const navbar = document.getElementById('navbar');
+    const menuToggle = document.getElementById('menuToggle');
+    menuToggle.addEventListener('click', () => {
+        navbar.classList.toggle('open');
+    });
+
+    // 2. Data Menu untuk 8 Kategori Our Favorites Menu
+    // Sesuaikan path 'gambar' dan 'harga' jika ada yang berbeda dengan file di assets/img/
+    const menuData = {
+        "makanan": [
+            { nama: "Ayam Hitam", harga: "Rp 27.000", gambar: "assets/img/menu/makanan_ayam hitam.jpeg" },
+            { nama: "Ayam Wangi", harga: "Rp 25.000", gambar: "assets/img/menu/makanan_ayam wangi.jpeg" },
+            { nama: "Sego Endok Cumi Ijo", harga: "Rp 24.000", gambar: "assets/img/menu/makanan_sego ndok cumi ijo.jpeg" },
+            { nama: "Sego Endok Ayam Cincang", harga: "Rp 22.000", gambar: "assets/img/menu/makanan_sego ndok ayam cincang.jpeg" },
+            { nama: "Sego Endok Jomblo", harga: "Rp 15.000", gambar: "assets/img/menu/makanan_sego endok jomblo.jpeg" },
+            { nama: "Sego Endok Daging Rica", harga: "Rp 27.000", gambar: "assets/img/menu/makanan_sego ndok daging rica.jpeg" }
+        ],
+        "minuman": [
+            { nama: "Es Jeruk", harga: "Rp 10.000", gambar: "assets/img/menu/esjeruk.jpg" },
+            { nama: "Jeruk Panas", harga: "Rp 10.000", gambar: "assets/img/menu/jerukpanas.jpg" },
+            { nama: "Air Mineral", harga: "Rp 5.000", gambar: "assets/img/menu/airmineral.jpg" },
+            { nama: "Jus Semangka", harga: "Rp 15.000", gambar: "assets/img/menu/jussemangka.jpg" },
+            { nama: "Jus mangga", harga: "Rp 18.000", gambar: "assets/img/menu/jusmangga.jpg" },
+            { nama: "Jus Melon", harga: "Rp 15.000", gambar: "assets/img/menu/jusmelon.jpg" }
+        ],
+        "snacks": [
+            { nama: "Toast Sandwich", harga: "Rp 20.000", gambar: "assets/img/menu/snack_toast sandwich.jpeg" },
+            { nama: "Beef Burger", harga: "Rp 32.000", gambar: "assets/img/menu/snack_beef burger.jpeg" },
+            { nama: "Chicken Burger", harga: "Rp 22.000", gambar: "assets/img/menu/snack_chicken burger.jpeg" },
+            { nama: "Beef Burger Meltique", harga: "Rp 32.000", gambar: "assets/img/menu/snack_beef burger meltique.jpeg" },
+            { nama: "Crispy Chicken Burger", harga: "Rp 24.000", gambar: "assets/img/menu/snack_crispy chicken burger.jpeg" },
+            { nama: "Yakiniku Shortplate Burger", harga: "Rp 30.000", gambar: "assets/img/menu/snack_burger yakiniku shortplate.jpeg" }
+        ],
+        "dessert": [
+            { nama: "Es Krim Choco Hazelnut", harga: "Rp 14.000", gambar: "assets/img/menu/dessert_choco peanut.jpeg" },
+            { nama: "Es Krim Vanilla Choco", harga: "Rp 12.000", gambar: "assets/img/menu/dessert_es krim vanilla choco.jpeg" },
+            { nama: "Es Krim Milk Cheese", harga: "Rp 15.000", gambar: "assets/img/menu/dessert_es krim milk chese.jpeg" },
+            { nama: "Es Krim Red Velvet Popcorn", harga: "Rp 16.000", gambar: "assets/img/menu/dessert_es krim red velved popcorn.jpeg" },
+            { nama: "Es Krim Matcha Tea Milo", harga: "Rp 15.000", gambar: "assets/img/menu/dessert_es krim matcha tea milo.jpeg" },
+            { nama: "Es Krim Tiramisu Oreo", harga: "Rp 15.000", gambar: "assets/img/menu/dessert_es krim tiramisu oreo.jpeg" }
+        ],
+        "dimsum": [
+            { nama: "Dimsum Mentai Mix", harga: "Rp 22.000", gambar: "assets/img/menu/dimsum_dimsam mentaim mix 1.jpeg" },
+            { nama: "Siomay Kepiting", harga: "Rp 18.000", gambar: "assets/img/menu/dimsum_siomay kepiting.jpeg" },
+            { nama: "Siomay Mercon", harga: "Rp 18.000", gambar: "assets/img/menu/dimsum_siomay mercon.jpeg" },
+            { nama: "Siomay Sushi", harga: "Rp 18.000", gambar: "assets/img/menu/dimsum_sushi.jpeg" },
+            { nama: "Lumpia Kulit Tahu", harga: "Rp 18.000", gambar: "assets/img/menu/dimsum_lumpia kulit tahu.jpeg" },
+            { nama: "Siomay Daging Sapi", harga: "Rp 18.000", gambar: "assets/img/menu/dimsum_siomay daging sapi.jpeg" }
+        ],
+        "coffee": [
+            { nama: "Kopi Tubruk", harga: "Rp 10.000", gambar: "assets/img/menu/coffe_kopi tubruk.jpeg" },
+            { nama: "Vietnam Drip Susu Ice", harga: "Rp 18.000", gambar: "assets/img/menu/coffe_vietnam drip susu ice.jpeg" },
+            { nama: "Vietnam Drip Susu", harga: "Rp 16.000", gambar: "assets/img/menu/coffe_vietnam drip susu.jpeg" },
+            { nama: "Vietnam Drip", harga: "Rp 16.000", gambar: "assets/img/menu/coffe_vietnam drip.jpeg" },
+            { nama: "Japanese Coffee", harga: "Rp 22.000", gambar: "assets/img/menu/coffe_japanese coffe.jpeg" },
+            { nama: "V60", harga: "Rp 22.000", gambar: "assets/img/menu/coffe_v60.jpeg" }
+        ],
+        "non-coffee": [
+            { nama: "Strawberry Oat", harga: "Rp 24.000", gambar: "assets/img/menu/non-coffe drink_strowbery oat.jpeg" },
+            { nama: "Blueberry Coconut", harga: "Rp 20.000", gambar: "assets/img/menu/non-coffe driks_blubery oat.jpeg" },
+            { nama: "Strawberry Coconut", harga: "Rp 20.000", gambar: "assets/img/menu/non-coffe drinks_strowbery coconut.jpeg" },
+            { nama: "Blueberry Milk", harga: "Rp 20.000", gambar: "assets/img/menu/non-coffe drinks_blubery milk.jpeg" },
+            { nama: "Strawberry Milk", harga: "Rp 20.000", gambar: "assets/img/menu/non-coffe driks_strawberry milk.jpeg" },
+            { nama: "Blueberry Orange", harga: "Rp 18.000", gambar: "assets/img/menu/non-coffe driks_bluberry orange.jpeg" }
+        ],
+        "matcha-tea": [
+            { nama: "Jambu Blackcurrant Sencha", harga: "Rp 20.000", gambar: "assets/img/menu/matcha & tea_jambu blackurrant sencha.jpeg" },
+            { nama: "Es Teh", harga: "Rp 6.000", gambar: "assets/img/menu/matcha & tea_es teh.jpeg" },
+            { nama: "Teh Panas", harga: "Rp 6.000", gambar: "assets/img/menu/matcha & tea_teh panas.jpeg" },
+            { nama: "Matcha Tea Milo", harga: "Rp 22.000", gambar: "assets/img/menu/dessert_es krim matcha tea milo.jpeg" },
+            { nama: "Lemon Tea", harga: "Rp 12.000", gambar: "assets/img/menu/matcha & tea_lemon tea.jpeg" },
+            { nama: "Matcha Oat Milk", harga: "Rp 25.000", gambar: "assets/img/menu/matcha & tea_matcha oat milk.jpeg" }
+        ]
+    };
+
+    const favMenuGrid = document.getElementById('favMenuGrid');
+    const favTabs = document.querySelectorAll('.fav-tab');
+
+    // Fungsi menampilkan kartu menu sesuai kategori terpilih
+    function renderFavorites(category) {
+        const items = menuData[category] || [];
+        favMenuGrid.innerHTML = items.map(item => `
+            <div class="menu-card">
+                <img src="${item.gambar}" alt="${item.nama}" />
+                <div class="menu-card-body">
+                    <h3>${item.nama}</h3>
+                    <p>${item.harga}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Event klik untuk setiap tombol kategori
+    favTabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            favTabs.forEach(t => t.classList.remove('active'));
+            tab.classList.add('active');
+            renderFavorites(tab.dataset.category);
+        });
+    });
+
+    // Tampilkan kategori default (Minuman) saat halaman pertama dibuka
+    renderFavorites('minuman');
+
+    // =====================================================================
+        // FITUR PENCARIAN HIDANGAN DI NAVBAR (BERLAKU DI SEMUA HALAMAN)
+        // =====================================================================
+        const monsteraSearchList = [
+            // Halaman 1 menu.html
+            { nama: "Ayam Wangi", kategori: "Makanan", harga: "25k" },
+            { nama: "Sego Endok Jomblo", kategori: "Makanan", harga: "15k" },
+            { nama: "Ayam Hitam", kategori: "Makanan", harga: "27k" },
+            { nama: "Sego Endok Cumi Ijo", kategori: "Makanan", harga: "24k" },
+            { nama: "Es jeruk", kategori: "Minuman", harga: "10k" },
+            { nama: "Air Mineral", kategori: "Minuman", harga: "5k" },
+            { nama: "Jus Semangka", kategori: "Minuman", harga: "15k" },
+            { nama: "Jus Alpukat", kategori: "Minuman", harga: "20k" },
+            { nama: "Toast Sandwich", kategori: "Snacks", harga: "20k" },
+            { nama: "Yakiniku Shortplate Burger", kategori: "Snacks", harga: "30k" },
+            { nama: "Crispy Chicken Burger", kategori: "Snacks", harga: "24k" },
+            { nama: "Platter Burger Beef Meltique", kategori: "Snacks", harga: "42k" },
+            { nama: "Siomay udang", kategori: "Dimsum", harga: "18k" },
+            { nama: "Siomay Mozarella", kategori: "Dimsum", harga: "20k" },
+            { nama: "Udang Rambutan", kategori: "Dimsum", harga: "18k" },
+            { nama: "Lumpia Kulit Tahu", kategori: "Dimsum", harga: "18k" },
+            // Halaman 2 menu.html
+            { nama: "Ekspresso", kategori: "Coffe", harga: "12k" },
+            { nama: "Doppio", kategori: "Coffe", harga: "15k" },
+            { nama: "Japanese Coffe", kategori: "Coffe", harga: "22k" },
+            { nama: "V60", kategori: "Coffe", harga: "22k" },
+            { nama: "Strawberry Markisa", kategori: "Non-Cofe Drinks", harga: "18k" },
+            { nama: "Mangga Orange", kategori: "Non-Cofe Drinks", harga: "18k" },
+            { nama: "Strawberry Milk", kategori: "Non-Cofe Drinks", harga: "20k" },
+            { nama: "Blueberry Milk", kategori: "Non-Cofe Drinks", harga: "20k" },
+            { nama: "Matcha Oat Milk", kategori: "Matcha & Tea", harga: "25k" },
+            { nama: "Matcha Tea Milo", kategori: "Matcha & Tea", harga: "22k" },
+            { nama: "Lemon Tea", kategori: "Matcha & Tea", harga: "12k" },
+            { nama: "Markisa Leci Tea", kategori: "Matcha & Tea", harga: "16k" },
+            { nama: "Es Krim Cokelat", kategori: "Dessert", harga: "12k" },
+            { nama: "Es Krim Coffee Black Pink", kategori: "Dessert", harga: "15k" },
+            { nama: "Es Krim Strawberry Salt Caramel", kategori: "Dessert", harga: "15k" },
+            { nama: "Es Krim Red Velvet Popcorn", kategori: "Dessert", harga: "16k" }
+        ];
+
+        const navSearchForm = document.getElementById('navSearchForm');
+        const navSearchInput = document.getElementById('navSearchInput');
+        const navSearchResults = document.getElementById('navSearchResults');
+
+        // Fungsi khusus untuk menyorot & menggulir ke menu saat berada di menu.html
+        function focusMenuOnPage(keyword) {
+            const query = keyword.toLowerCase().trim();
+            const menuItems = Array.from(document.querySelectorAll('.menu-item'));
+
+            // Hapus highlight lama
+            menuItems.forEach(item => item.classList.remove('search-highlight'));
+
+            // Cari kecocokan berdasarkan judul menu, deskripsi, atau judul kategori
+            const matchedItem = menuItems.find(item => {
+                const title = item.querySelector('h3')?.textContent.toLowerCase() || '';
+                const desc = item.querySelector('p')?.textContent.toLowerCase() || '';
+                const cat = item.closest('.menu-category-row')?.querySelector('.menu-category-heading')?.textContent.toLowerCase() || '';
+                return title.includes(query) || desc.includes(query) || cat.includes(query);
+            });
+
+            if (!matchedItem) return false;
+
+            // Jika berada di halaman 2, otomatis aktifkan tab halaman tersebut
+            const parentPage = matchedItem.closest('.menu-page');
+            if (parentPage) {
+                const allPages = Array.from(document.querySelectorAll('.menu-page'));
+                const targetIdx = allPages.indexOf(parentPage);
+                allPages.forEach((p, i) => p.classList.toggle('active', i === targetIdx));
+                if (typeof currentPage !== 'undefined') currentPage = targetIdx;
+
+                const prevBtn = document.getElementById('prevPageBtn');
+                const nextBtn = document.getElementById('nextPageBtn');
+                if (prevBtn) prevBtn.disabled = targetIdx === 0;
+                if (nextBtn) nextBtn.disabled = targetIdx === allPages.length - 1;
+            }
+
+            // Tutup dropdown & menu mobile, lalu scroll + beri highlight
+            navSearchResults.classList.remove('show');
+            if (typeof navbar !== 'undefined') navbar.classList.remove('open');
+
+            matchedItem.classList.add('search-highlight');
+            matchedItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            return true;
+        }
+
+        // Arahkan pencarian (jika sudah di menu.html langsung scroll, jika di halaman lain pindah ke menu.html)
+        function goToMenuSearch(keyword) {
+            const cleanKeyword = keyword.trim();
+            if (!cleanKeyword) return;
+
+            if (document.getElementById('menuSectionsWrap')) {
+                const found = focusMenuOnPage(cleanKeyword);
+                if (!found) {
+                    navSearchResults.innerHTML = `<div class="search-empty">Hidangan "${cleanKeyword}" tidak ditemukan.</div>`;
+                    navSearchResults.classList.add('show');
+                }
+            } else {
+                window.location.href = `menu.html?q=${encodeURIComponent(cleanKeyword)}`;
+            }
+        }
+
+        // Tampilkan hasil live dropdown saat mengetik
+        navSearchInput.addEventListener('input', () => {
+            const keyword = navSearchInput.value.toLowerCase().trim();
+            if (!keyword) {
+                navSearchResults.classList.remove('show');
+                navSearchResults.innerHTML = '';
+                return;
+            }
+
+            const matches = monsteraSearchList.filter(item =>
+                item.nama.toLowerCase().includes(keyword) ||
+                item.kategori.toLowerCase().includes(keyword)
+            );
+
+            if (matches.length === 0) {
+                navSearchResults.innerHTML = `<div class="search-empty">Hidangan tidak ditemukan.</div>`;
+            } else {
+                navSearchResults.innerHTML = matches.map(item => `
+                    <div class="search-result-item" data-menu="${item.nama}">
+                        <div>
+                            <span class="search-result-name">${item.nama}</span>
+                            <span class="search-result-cat">${item.kategori}</span>
+                        </div>
+                        <span class="search-result-price">${item.harga}</span>
+                    </div>
+                `).join('');
+            }
+            navSearchResults.classList.add('show');
+        });
+
+        // Klik salah satu item di dropdown hasil pencarian
+        navSearchResults.addEventListener('click', (e) => {
+            const clicked = e.target.closest('.search-result-item');
+            if (!clicked) return;
+            const menuName = clicked.dataset.menu;
+            navSearchInput.value = menuName;
+            goToMenuSearch(menuName);
+        });
+
+        // Tekan Enter di kolom pencarian
+        navSearchForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            goToMenuSearch(navSearchInput.value);
+        });
+
+        // Tutup dropdown jika klik di luar area pencarian
+        document.addEventListener('click', (e) => {
+            if (!navSearchForm.contains(e.target)) {
+                navSearchResults.classList.remove('show');
+            }
+        });
+
+        // Otomatis jalankan pencarian saat menu.html dibuka dari halaman lain (?q=...)
+        if (document.getElementById('menuSectionsWrap')) {
+            const urlParams = new URLSearchParams(window.location.search);
+            const initialQuery = urlParams.get('q');
+            if (initialQuery) {
+                navSearchInput.value = initialQuery;
+                setTimeout(() => focusMenuOnPage(initialQuery), 150);
+            }
+        }
+</script>
+</body>
+</html>
